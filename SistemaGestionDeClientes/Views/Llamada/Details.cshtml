@@ -1,0 +1,37 @@
+﻿@model Model.Domain.Llamada
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles de Llamada</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Id_Cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_Cliente)
+        </dd>
+
+    </dl>
+</div>
+
+<div>
+    <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

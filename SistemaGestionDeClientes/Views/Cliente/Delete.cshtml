@@ -1,0 +1,57 @@
+﻿@model Model.Custom.ClienteGrid
+
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar Cliente</h2>
+
+<h3>¿Estás seguro de que quieres eliminar este Cliente?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CondicionTributaria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CondicionTributaria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApyNom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApyNom)
+        </dd>
+
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn" /> |
+            <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>
+        </div>
+    }
+</div>

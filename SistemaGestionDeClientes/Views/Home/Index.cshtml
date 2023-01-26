@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+
+<div class="jumbotron">
+    @if (Request.IsAuthenticated)
+    {
+        <h1>Hola @Common.CurrentUser.Get.Name</h1>
+        <p class="lead">Bienvenido!!! Menu para la Gestión de Clientes</p>
+    }
+    else
+    {
+        <h1>Sistema de Gestión de Clientes</h1>
+        <p class="lead">Inicie Sesión para comenzar.</p>
+        <p>
+            <a href='@Url.Action("Login", "Account")' class="btn">Iniciar Sesión &raquo;</a>
+        </p>
+    }
+</div>
+
+<div class="row" style="display:inline-flex; flex-wrap:nowrap">
+    @if (Request.IsAuthenticated)
+    {
+    <div class="col-md-4">
+        <h2>Clientes</h2>
+        <p>Gestión de Clientes</p>
+        <p><a class="btn" href='@Url.Action("Index", "Cliente")'>Gestionar Cliente &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Proyectos</h2>
+        <p> Gestionar de Proyectos</p>
+        <p><a class="btn" href='@Url.Action("Index", "Proyectos", new { id = "Create"})'>Gestionar Proyectos &raquo;</a></p>
+        @*
+            
+        <p> Modificación de Proyectos</p>
+        <p><a class="btn" href='@Url.Action("Index", "Proyectos", new { id = "Edit"})'>Modificar Proyectos &raquo;</a></p>
+        <p> Busqueda de Proyectos</p>
+        <p><a class="btn" href='@Url.Action("Index", "Proyectos", new { id = "Create"})'>Buscar Proyecto &raquo;</a></p>
+        <p> Eliminación de Proyectos</p>
+        <p><a class="btn" href='@Url.Action("Index", "Proyectos", new { id = "Delete"})'>Eliminar Proyectos &raquo;</a></p>
+        
+        *@
+    
+    </div>
+    <div class="col-md-4">
+        <h2>Facturas</h2>
+        <p>Mostrar Factura.</p>
+        <p><a class="btn" href='@Url.Action("Index", "Factura")'>Ver Facturas &raquo;</a></p>
+        <p>Mostrar Facturas Emitidas.</p>
+        <p><a class="btn" href='@Url.Action("Index", "FacturaEmitida")'>Ver Facturas Emitidas &raquo;</a></p>
+        <p> Ver Detalles Sin emitir</p>
+        <p><a class="btn" href='@Url.Action("Index", "Detalle", new { id = "Edit"})'>Ver Detalles &raquo;</a></p>
+
+    </div>
+    <div class="col-md-4">
+        <h2>Llamadas</h2>
+        <p>Mostrar Llamadas.</p>
+        <p><a class="btn" href='@Url.Action("Index", "Llamada")'>Ver Llamadas &raquo;</a></p>
+    </div>
+      <div class="col-md-4">
+            <h2>Empleados</h2>
+            <p>Gestionar Empleados</p>
+            <p><a class="btn" href='@Url.Action("Index", "Empleado")'>Empleados &raquo;</a></p>
+        </div>
+    @*<div class="col-md-4">
+               <h2>Usuarios</h2>
+               <p>Creacion de Usuarios.</p>
+               <p><a class="btn btn-default" href='@Url.Action("Index", "")'>Crear Usuario &raquo;</a></p>
+               <p>Visualización de Usuarios.</p>
+               <p><a class="btn btn-default" href='@Url.Action("Index", "")'>Visualizar Usuarios &raquo;</a></p>
+               <p>Eliminación de Usuarios.</p>
+               <p><a class="btn btn-default" href='@Url.Action("Index", "")'>Eliminar Usuario &raquo;</a></p>
+        </div>*@
+    }
+</div>

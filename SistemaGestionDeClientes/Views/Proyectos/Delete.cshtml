@@ -1,0 +1,71 @@
+﻿@model Model.Custom.ProyectosGrid
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+<h3>Estas seguro que deseas eliminar este Proyecto?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id_Proyecto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_Proyecto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaFin)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Id_Cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_Cliente)
+        </dd>
+
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+       <div class="form-actions no-color">
+           <input type="submit" value="Eliminar" class="btn" /> |
+           <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>
+       </div>
+    }
+</div>

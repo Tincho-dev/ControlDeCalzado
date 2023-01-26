@@ -1,0 +1,65 @@
+﻿@model Model.Custom.FacturaGrid
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalle de Factura</h2>
+
+<div>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id_Factura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_Factura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Id_Cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_Cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaVencimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaVencimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaEmision)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaEmision)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+    </dl>
+        @*<p>
+            @Html.ActionLink("Imprimir", "ReporteFactura", "Factura", new { @class = "btn", @target = "_blank" }) |
+        </p>*@
+</div>
+
+<div>
+    <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
