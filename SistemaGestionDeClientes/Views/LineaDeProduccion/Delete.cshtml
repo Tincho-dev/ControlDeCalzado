@@ -1,0 +1,23 @@
+﻿@model Model.Domain.ControlDeCalzado.LineaDeProduccion
+
+@{
+    ViewBag.Title = "Linea de Produccion";
+}
+
+<h2>Eliminar Linea de Producción</h2>
+
+<h3>Estas seguro que quieres eliminar?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar Linea" class="btn" /> |
+            <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>
+        </div>
+    }
+</div>

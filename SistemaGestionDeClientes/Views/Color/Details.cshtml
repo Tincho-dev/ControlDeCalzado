@@ -1,0 +1,32 @@
+﻿@model Model.Domain.ControlDeCalzado.Color
+
+@{
+    ViewBag.Title = "Color";
+}
+
+<h2>Detalles del Color</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DescripcionColor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescripcionColor)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar Color", "Edit", new { id = Model.CodigoColor }, new { @class = "btn" }) |
+    @*  @Html.ActionLink("Back to List", "Index")*@
+</p>
+<div>
+    <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

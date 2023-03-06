@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Model.Domain.ControlDeCalzado.LineaDeProduccion>
+
+    @{
+    ViewBag.Title = "Linea de Produccion";
+    }
+
+    <h2>Lineas de Produccion</h2>
+
+    <p>
+        @Html.ActionLink("Crear nueva Línea de Producción", "Create", "LineaDeProduccion", new { @class = "btn" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroLinea)
+            </th>
+        </tr>
+
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroLinea)
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.NumeroLinea }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.NumeroLinea }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.NumeroLinea })*@
+            </td>
+        </tr>
+}
+
+    </table>
+    <div>
+        @Html.ActionLink("Volver al Inicio", "Index", "Home", null , new{ @class = "btn" } )
+    </div>

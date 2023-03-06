@@ -1,0 +1,109 @@
+﻿.navbar-inverse {
+    background-color: #bcb8b1;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #463f3a;
+}
+
+.navbar-inverse .navbar-nav li a{
+    color: #463f3a;
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #463f3a;
+    align-content: center;
+    color: #f1faee;
+    display: flex;
+    flex-direction: column;
+}
+
+.MiEstilo {
+    color: #463f3a;
+    text-decoration: underline;
+}
+
+.botones{
+    display:flex;
+    align-items:center;
+    border-top:0;
+}
+
+tr {
+    background-color: white;
+    color: #463f3a;
+    text-align: center;
+}
+
+th {
+    background-color: #8a817c;
+    color: white;
+    text-align: center;
+}
+
+.jumbotron{
+    color: #191818;
+}
+.col-md-4 {
+    text-align: center;
+}
+.row{
+    margin-right:30px;
+    margin-left:30px;
+}
+
+.btn {
+    background-color: #8a817c;
+    color: white;
+}
+
+.filtrar {
+    background-color: #8a817c;
+    color: #191818;
+    border: none;
+}
+
+.filtrar:hover{
+    background-color: #f1faee;
+}
+
+.btn-default {
+    background-color: #8a817c;
+}
+
+.btn-success {
+    background-color: #8a817c;
+    border-color: #463f3a;
+}
+
+.btn:hover, btn:focus {
+    background-color: #8a817c;
+    color: #463f3a;
+}
+}
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.footer{
+    margin-top:auto;
+
+}
+

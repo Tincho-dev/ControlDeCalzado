@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Model.Domain.ControlDeCalzado.Defecto>
+
+    @{
+    ViewBag.Title = "Defecto";
+    }
+
+    <h2>Defecto</h2>
+
+    <p>
+        @Html.ActionLink("Crear nuevo Defecto", "Create", "Defecto", new { @class = "btn" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DescripcionDefecto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoDefecto)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescripcionDefecto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoDefecto)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id=item.IdDefecto }, new { @class = "btn" }) |
+                @Html.ActionLink("Detalles", "Details", new { id=item.IdDefecto }, new { @class = "btn" }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id=item.IdDefecto }, new { @class = "btn" })
+            </td>
+        </tr>
+}
+
+    </table>
+    <div>
+        @Html.ActionLink("Volver al Inicio", "Index", "Home", null , new{ @class = "btn" } )
+    </div>

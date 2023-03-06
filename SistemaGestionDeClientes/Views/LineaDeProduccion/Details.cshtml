@@ -1,0 +1,24 @@
+﻿@model Model.Domain.ControlDeCalzado.LineaDeProduccion
+
+@{
+    ViewBag.Title = "Linea de Produccion";
+}
+
+<h2>Detalles de la Linea de Producción</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar Linea", "Edit", new { id = Model.NumeroLinea }, new { @class = "btn" }) |
+    @*@Html.ActionLink("Back to List", "Index")*@
+</p>
+<div>
+    <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

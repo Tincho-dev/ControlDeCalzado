@@ -1,0 +1,240 @@
+﻿@model Model.Domain.ControlDeCalzado.OrdenDeProduccion
+@using Services
+@using Model.Domain.ControlDeCalzado 
+
+@{
+    ViewBag.Title = "Continuar Inspeccion";
+    Modelo modelo = ModeloService.Get(Model.Sku);
+    Color color = ColorService.Get(Model.CodigoColor);
+    var DefectosR = DefectoService.GetReproceso();
+    var DefectosO = DefectoService.GetObservado();
+    var horaActual = DateTime.Now.TimeOfDay;
+    int contadorParesDePrimera = Model.CantidadDePrimera;
+}
+<div class="row" style="padding-bottom:10px">
+    <div class="col">
+        <h2 style="text-align:left;">Iniciar Inspección</h2>
+    </div>  <!-- CIERRE COL 1 DE TITULO-->
+    <hr />
+</div>  <!-- CIERRE ROW 1 DE TITULO-->
+
+<div class="row" style="padding-bottom:30px">
+    <div class="col-md-4">
+        <ul>
+            <li>
+                <h4 style="text-align:left;">Fecha de Inicio: @Model.FechaDeInicio</h4>
+            </li>
+            <li>
+                <h4 style="text-align:left;">Línea: @Model.IdLinea</h4>
+            </li>
+        </ul>
+    </div> <!-- CIERRE COL 1 DE DATOS-->
+
+    <div class="col-md-4">
+        <ul>
+            <li>
+                <h4 style="text-align:left;">Sku: @Model.Sku</h4>
+            </li>
+            <li>
+                <h4 style="text-align:left;">Modelo: @modelo.Denominacion</h4>
+            </li>
+        </ul>
+    </div> <!-- CIERRE COL 2 DE DATOS-->
+
+    <div class="col-md-4">
+        <ul>
+            <li>
+                <h4 style="text-align:left;">Codigo Color: @Model.CodigoColor</h4>
+            </li>
+            <li>
+                <h4 style="text-align:left;">Color: @color.DescripcionColor</h4>
+            </li>
+        </ul>
+    </div>  <!-- CIERRE COL 3 DE DATOS-->
+
+</div>  <!-- CIERRE ROW 1-->
+
+<div class="row">
+    <div class="col">
+        <p> Cambiar hora:</p>
+        @*@foreach()*@
+    </div> <!-- CIERRE COL 1 DE CAMBIAR HORA-->
+</div> <!-- CIERRE ROW 2-->
+
+<div class="row">
+    <div class="col-md-12">
+
+        <table class="table" style="font-size: 28px; width: 75%; margin-left: 122px">
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        Par de Primera
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <button style="border-radius: 15px" id="btnRestar">-</button>
+                    </td>
+                    <td>
+                        <span id="lblcantidad">@Model.CantidadDePrimera</span>
+                    </td>
+                    <td>
+                        <button style="border-radius: 15px"  id="btnSumar">+</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> <!-- CIERRE COL 1 DE TABLA DE PAR DE PRIMERA-->
+</div> <!-- CIERRE ROW 3-->
+
+
+<div class="row">
+    <div class="col-md-6">
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Izquierdo
+                    </th>
+                    <th>
+                        Observado
+                    </th>
+                    <th>
+                        Derecho
+                    </th>
+                </tr>
+            </thead>
+
+            @foreach (var item in DefectosO)
+            {
+                <tr>
+                    <td>
+                        <p>
+                            <button style="border-radius: 15px" onclick="BotonSumarObsIzq()">@item.IdDefecto +</button>
+                            @*<span></span>*@0
+                            <button style="border-radius: 15px" onclick="BotonRestarObsIzq">-</button>
+                        </p>
+                    </td>
+                    <td>
+                        @Html.Raw(item.DescripcionDefecto)
+                    </td>
+                    <td>
+                        <p>
+                            <button style="border-radius: 15px" onclick="BotonSumarRepro">+</button>
+                            @*<span></span>*@0
+                            <button style="border-radius: 15px">-</button>
+                        </p>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div> <!-- CIERRE COL 1 DE TABLA DE DEFECTO OBSERVADO-->
+    <div class="col-md-6">
+        <table class="table">
+            <tr>
+                <th>
+                    Izquiero
+                </th>
+                <th>
+                    Reproceso
+                </th>
+                <th>
+                    Derecho
+                </th>
+            </tr>
+
+            @foreach (var item in DefectosR)
+            {
+                <tr>
+                    <td>
+                        <p>
+                            <button style="border-radius: 15px">+</button>
+                            0
+                            <button style="border-radius: 15px">-</button>
+                        </p>
+                    </td>
+                    <td>
+                        @Html.Raw(item.DescripcionDefecto)
+                    </td>
+                    <td>
+                        <p>
+                            <button style="border-radius: 15px">+</button>
+                            0
+                            <button style="border-radius: 15px">-</button>
+                        </p>
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+    </div> <!-- CIERRE COL 2 DE TABLA DE DEFECTO DE REPROCESO-->
+</div> <!-- CIERRE DE ROW 4 DE TABLAS DE DEFECTOS-->
+
+<div id="detail-container">
+    @*<a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a Detalles</a>*@
+    @Html.ActionLink("Volver a Detalles", "Details", new { id = Model.Numero }, new { @class = "btn" })
+</div>
+
+
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#btnSumar').click(function () {
+                actualizarCantidad(1);
+            });
+
+            $('#btnRestar').click(function () {
+                actualizarCantidad(-1);
+            });
+        });
+
+        function actualizarCantidad(cantidad) {
+            var numeroDeOrden = "@Model.Numero";
+            var cantidadActual = parseInt($('#lblcantidad').text());
+            var nuevaCantidad = cantidadActual + cantidad;
+
+            if (nuevaCantidad < 0) {
+                alert('No se permiten numeros negativos');
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ActualizarCantidad", "OrdenDeProduccion")",
+                data: { numeroDeOrden: numeroDeOrden, cantidad: cantidad },
+                success: function (response) {
+                    $('#lblcantidad').text(response);
+                }
+            });
+        }
+    </script>
+
+    <script>
+        $(document).on('click', '.detail-link', function () {
+            var id = $(this).data('id');
+            $.ajax({
+                url: '/OrdenDeProduccion/Details/' + id,
+                type: 'GET',
+                success: function (result) {
+                    $('#detail-container').html(result);
+                }
+            });
+        });
+    </script>
+}

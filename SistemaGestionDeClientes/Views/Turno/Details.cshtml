@@ -1,0 +1,40 @@
+﻿@model Model.Domain.ControlDeCalzado.Turno
+
+@{
+    ViewBag.Title = "Turno";
+}
+
+<h2>Detalle del Turno</h2>
+
+<div>
+    @*<h4>Turno</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraDeInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoraDeInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraDeFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoraDeFin)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar Turno", "Edit", new { id = Model.IdTurno }, new { @class = "btn" }) |
+    @* @Html.ActionLink("Back to List", "Index")*@
+</p>
+<div>
+    <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

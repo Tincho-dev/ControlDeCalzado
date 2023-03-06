@@ -1,0 +1,80 @@
+﻿@model Model.Domain.ControlDeCalzado.OrdenDeProduccion
+
+@{
+    ViewBag.Title = "Orden de Produccion";
+}
+
+<h2>Eliminar Orden de Produccion</h2>
+
+<h3>Estas seguro que quieres eliminar?</h3>
+<div>
+    @*<h4>OrdenDeProduccion</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaDeInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaDeInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaDeFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaDeFin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CantidadDePrimera)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CantidadDePrimera)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CantidadPorHermanado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CantidadPorHermanado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CodigoColor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodigoColor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sku)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sku)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdLinea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdLinea)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Eliminar OP" class="btn" /> |
+        <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>
+    </div>
+    }
+</div>

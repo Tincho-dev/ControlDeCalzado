@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Model.Domain.ControlDeCalzado.Turno>
+
+@{
+    ViewBag.Title = "Turno";
+}
+
+<h2>Turnos</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo Turno", "Create", "Turno", new { @class = "btn" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HoraDeInicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoraDeFin)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoraDeInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoraDeFin)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.IdTurno },new { @class = "btn" }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.IdTurno },new { @class = "btn" }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.IdTurno },new { @class = "btn" })
+        </td>
+    </tr>
+}
+
+</table>
+
+<div>
+    @Html.ActionLink("Volver al Inicio", "Index", "Home", null , new{ @class = "btn" } )
+</div>

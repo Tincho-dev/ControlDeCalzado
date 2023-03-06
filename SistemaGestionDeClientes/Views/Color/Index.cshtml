@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Model.Domain.ControlDeCalzado.Color>
+
+    @{
+    ViewBag.Title = "Inicio";
+    }
+
+    <h2>Color</h2>
+
+    <p>
+        @Html.ActionLink("Crear Nuevo Color", "Create", "Color", new { @class = "btn" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoColor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescripcionColor)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoColor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescripcionColor)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id=item.CodigoColor }, new { @class = "btn" }) |
+                @Html.ActionLink("Detalles", "Details", new { id=item.CodigoColor }, new { @class = "btn" }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id=item.CodigoColor }, new { @class = "btn" })
+            </td>
+        </tr>
+}
+    </table>
+    <div>
+        @Html.ActionLink("Volver al Inicio", "Index", "Home", null , new{ @class = "btn" } )
+    </div>

@@ -1,0 +1,97 @@
+﻿@model Model.Domain.ControlDeCalzado.OrdenDeProduccion
+@using Services
+@{
+    ViewBag.Title = "Orden de Produccion";
+    var role = Services.UserService.GetRole(Common.CurrentUser.Get.UserId).Role;
+}
+
+<h2>Detalle Orden de Produccion</h2>
+
+<div id="DetalleOp">
+    @*<h4>OrdenDeProduccion</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaDeInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaDeInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaDeFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaDeFin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CantidadDePrimera)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CantidadDePrimera)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CantidadPorHermanado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CantidadPorHermanado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CodigoColor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodigoColor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sku)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sku)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdLinea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdLinea)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*Al Rol SuperCalidad se le retira la opcion de EditarOP*@
+    @if ((role == "Admin") || (role == "SuperLinea"))
+    {
+    @Html.ActionLink("Editar OP", "Edit", new { id = Model.Numero }, new { @class = "btn" })
+    }
+
+    @if (OrdenDeProduccionService.JornadaActiva(Model.Numero))
+    {
+    @Html.ActionLink("Continuar Inspeccion", "ContinuarInspeccion", new { id = Model.Numero }, new { @class = "btn" })
+    }
+    else
+    {
+    @Html.ActionLink("Iniciar Inspeccion", "IniciarInspeccion", new { id = Model.Numero }, new { @class = "btn" })
+    }
+
+    @* @Html.ActionLink("Back to List", "Index")*@
+</p>
+<div>
+    @*<a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>*@
+    @Html.ActionLink("Volver a la Lista", "Index", null, new { @class="btn" })
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

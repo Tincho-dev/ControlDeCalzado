@@ -1,0 +1,21 @@
+/* BEGIN EXTERNAL SOURCE */
+
+    .semaforo {
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+    }
+
+    .verde {
+        background-color: green;
+    }
+
+    .amarillo {
+        background-color: yellow;
+    }
+
+    .rojo {
+        background-color: red;
+    }
+
+/* END EXTERNAL SOURCE */

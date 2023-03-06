@@ -1,0 +1,64 @@
+﻿@model Model.Domain.ControlDeCalzado.Modelo
+
+@{
+    ViewBag.Title = "Modelo";
+}
+
+<h2>Eliminar un Modelo</h2>
+
+<h3>Estas seguro que quieres eliminar?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Denominacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Denominacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LimiteInferiorDeObservado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LimiteInferiorDeObservado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LimiteInferiorDeReproceso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LimiteInferiorDeReproceso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LimiteSuperiorDeObservado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LimiteSuperiorDeObservado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LimiteSuperiorDeReproceso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LimiteSuperiorDeReproceso)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Eliminar Modelo" class="btn" /> |
+    <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>
+
+</div>
+    }
+</div>

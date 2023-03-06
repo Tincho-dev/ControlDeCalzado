@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Model.Domain.ControlDeCalzado.OrdenDeProduccion>
+
+    @{
+    ViewBag.Title = "Orden de Produccion";
+    var role = string.Empty;
+    if (Request.IsAuthenticated)
+    {
+        role = Services.UserService.GetRole(Common.CurrentUser.Get.UserId).Role;
+    }
+    }
+
+    <h2>Ordenes de Produccion</h2>
+
+    @if (role == "Admin")
+{
+    <p>
+        @Html.ActionLink("Crear Nueva Orden", "Create", "OrdenDeProduccion", new { @class = "btn" })
+    </p>
+}
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaDeInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaDeFin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadDePrimera)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadPorHermanado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoColor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sku)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdLinea)
+            </th>
+            <th></th>
+        </tr>
+        <tbody id="dataTable">
+            @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Numero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaDeInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaDeFin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CantidadDePrimera)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CantidadPorHermanado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoColor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sku)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdLinea)
+                </td>
+                <td>
+                    @Html.ActionLink("Detalles", "Details", new { id = item.Numero }, new { @class = "btn" })
+                    @if ((role == "Admin") || (role == "SuperLinea"))
+                    {
+                        Html.ActionLink("Editar", "Edit", new { id = item.Numero }, new { @class = "btn" });
+                        Html.ActionLink("Eliminar", "Delete", new { id = item.Numero }, new { @class = "btn" });
+                        Html.ActionLink("AsignarOp", "AddUserToOp", new { id = item.Numero }, new { @class = "btn" });
+                    }
+
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <div>
+        @Html.ActionLink("Volver al Inicio", "Index", "Home", null, new { @class = "btn" })
+    </div>
+
+    @section Scripts {
+
+    }
+
+

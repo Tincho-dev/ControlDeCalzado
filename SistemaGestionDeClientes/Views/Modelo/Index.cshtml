@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Model.Domain.ControlDeCalzado.Modelo>
+
+    @{
+    ViewBag.Title = "Modelo";
+    }
+
+    <h2>Modelos</h2>
+
+    <p>
+        @Html.ActionLink("Crear Nuevo Modelo", "Create", "Modelo", new { @class = "btn" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Denominacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LimiteInferiorDeObservado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LimiteInferiorDeReproceso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LimiteSuperiorDeObservado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LimiteSuperiorDeReproceso)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Denominacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LimiteInferiorDeObservado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LimiteInferiorDeReproceso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LimiteSuperiorDeObservado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LimiteSuperiorDeReproceso)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id=item.Sku }, new { @class = "btn" }) |
+                @Html.ActionLink("Detalles", "Details", new { id=item.Sku }, new { @class = "btn" }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id=item.Sku }, new { @class = "btn" })
+            </td>
+        </tr>
+}
+    </table>
+    <div>
+        @Html.ActionLink("Volver al Inicio", "Index", "Home", null , new{ @class = "btn" } )
+    </div>
