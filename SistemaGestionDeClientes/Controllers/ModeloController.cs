@@ -7,6 +7,7 @@ namespace ControlDeCalzado.Controllers
 {
     public class ModeloController : Controller
     {
+        [Authorize]
         // GET: Modelo
         public ActionResult Index()
         {
@@ -14,6 +15,7 @@ namespace ControlDeCalzado.Controllers
             return View(modelos);
         }
 
+        [Authorize]
         // GET: Modelo/Details/5
         public ActionResult Details(string id)
         {
@@ -21,6 +23,7 @@ namespace ControlDeCalzado.Controllers
             return View(modelo);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Modelo/Create
         public ActionResult Create()
         {

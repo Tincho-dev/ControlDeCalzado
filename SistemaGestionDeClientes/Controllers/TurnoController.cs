@@ -10,22 +10,25 @@ namespace SistemaGestionDeClientes.Controllers
 {
     public class TurnoController : Controller
     {
-        // GET: Turno
-        public ActionResult Index()
+		[Authorize]
+		// GET: Turno
+		public ActionResult Index()
         {
 			var turnos = TurnoService.GetAll();
 			return View(turnos);
 		}
 
-        // GET: Turno/Details/5
-        public ActionResult Details(int id)
+		[Authorize(Roles = "Admin, SuperLinea")]
+		// GET: Turno/Details/5
+		public ActionResult Details(int id)
         {
 			var turnos = TurnoService.Get(id);
 			return View(turnos);
 		}
 
-        // GET: Turno/Create
-        public ActionResult Create()
+		[Authorize(Roles = "Admin")]
+		// GET: Turno/Create
+		public ActionResult Create()
         {
             return View();
         }

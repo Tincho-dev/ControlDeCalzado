@@ -4,18 +4,21 @@ namespace ControlDeCalzado.Controllers
 {
     public class HistorialRolesController : Controller
     {
+        [Authorize(Roles = "Admin")]
         // GET: HistorialRoles
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: HistorialRoles/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: HistorialRoles/Create
         public ActionResult Create()
         {

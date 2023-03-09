@@ -10,6 +10,7 @@ namespace ControlDeCalzado.Controllers
 {
     public class ColorController : Controller
     {
+        [Authorize]
         // GET: Color
         public ActionResult Index()
         {
@@ -17,6 +18,7 @@ namespace ControlDeCalzado.Controllers
             return View(colores);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Color/Details/5
         public ActionResult Details(string id)
         {
@@ -24,6 +26,7 @@ namespace ControlDeCalzado.Controllers
             return View(color);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Color/Create
         public ActionResult Create()
         {

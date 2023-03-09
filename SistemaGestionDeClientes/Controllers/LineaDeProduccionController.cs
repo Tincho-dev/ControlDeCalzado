@@ -10,6 +10,7 @@ namespace ControlDeCalzado.Controllers
 {
     public class LineaDeProduccionController : Controller
     {
+        [Authorize(Roles = "Admin, SuperLinea")]
         // GET: LineaDeProduccion
         public ActionResult Index()
         {
@@ -17,6 +18,7 @@ namespace ControlDeCalzado.Controllers
             return View(LineaDeProduccions);
         }
 
+        [Authorize(Roles = "Admin, SuperLinea")]
         // GET: LineaDeProduccion/Details/5
         public ActionResult Details(int id)
         {
@@ -24,6 +26,7 @@ namespace ControlDeCalzado.Controllers
             return View(LineaDeProduccion);
         }
 
+        [Authorize(Roles = "Admin, SuperLinea")]
         // GET: LineaDeProduccion/Create
         public ActionResult Create()
         {

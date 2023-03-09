@@ -1,17 +1,16 @@
-﻿using Model.Domain;
+﻿using Common;
 using Model.Domain.ControlDeCalzado;
 using Persistanse;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
     public class OrdenDeProduccionService
     {
+        #region CRUD
         public static IEnumerable<OrdenDeProduccion> GetAll()
         {
             var result = new List<OrdenDeProduccion>();
@@ -105,6 +104,24 @@ namespace Services
                 db.SaveChanges();
             }
         }
+        public static void Delete(string id)
+        {
+            try
+            {
+                using (var db = new ApplicationDbContext())
+                {
+                    OrdenDeProduccion OrdenDeProduccion = db.OrdenesDeProduccion.Where(x => x.Numero == id).Single();
+
+                    db.OrdenesDeProduccion.Remove(OrdenDeProduccion);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException("No se puede eliminar la Orden de Produccion" + id);
+            }
+        }
+        #endregion
         public static bool JornadaActiva(string numero)
         {
             var idTurno = TurnoService.GetId();
@@ -140,19 +157,106 @@ namespace Services
             var op = Get(Numero);
             var idTurno = TurnoService.GetId();
             var FinJornada = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day) + TurnoService.Get(idTurno).HoraDeFin;
-            
-                using (var db = new ApplicationDbContext())
-                {
+
+            using (var db = new ApplicationDbContext())
+            {
                 var horarioDeControl = new HorarioDeControl
                 {
                     HoraInicio = DateTime.Now,
                     HoraFin = FinJornada,
-                    IdJornada = db.JornadasLaborales.Where(j=>j.FechaFinJornada == FinJornada && j.Numero == Numero).Single().IdJornada,
+                    IdJornada = db.JornadasLaborales.Where(j => j.FechaFinJornada == FinJornada && j.Numero == Numero).Single().IdJornada,
                 };
                 db.HorariosDeControl.Add(horarioDeControl);
                 db.SaveChanges();
             }
         }
+        public static void RegistrarIncidencia(int cantidad,int idHorarioDeControl)
+        {
+            Incidencia incidencia = new Incidencia()
+            {
+                FechaIncidencia = DateTime.Now,
+                CantidadIncidencia = cantidad,
+                Tipo = TipoIncidencia.Primera,
+                IdHorarioDeControl = idHorarioDeControl
+
+            };
+
+            using (var db = new ApplicationDbContext())
+            {
+                db.Incidencias.Add(incidencia);
+                db.SaveChanges();
+            }
+        }
+
+        public static int HorarioActual(string numeroOp)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                return (from j in db.JornadasLaborales.Where(j => j.Numero == numeroOp).OrderByDescending(j => j.FechaInicioJornada)
+                        from hdc in db.HorariosDeControl.Where(hd => hd.IdJornada == j.IdJornada).OrderByDescending(h => h.HoraInicio)
+                        select hdc).FirstOrDefault().IdHorarioDeControl;
+            }
+        }
+
+        public static void RegistrarIncidencia(int cantidad, int idDefecto, Pie pie, int idHorarioDeControl)
+        {
+            Incidencia incidencia = new Incidencia()
+            {
+                FechaIncidencia = DateTime.Now,
+                CantidadIncidencia = cantidad,
+                IdDefecto = idDefecto,
+                Pie = pie,
+                Tipo = TipoIncidencia.Defecto,
+                IdHorarioDeControl = idHorarioDeControl
+            };
+
+            using (var db = new ApplicationDbContext())
+            {
+                db.Incidencias.Add(incidencia);
+            }
+        }
+
+        #region Consultas
+        public static int TotalIncidenciasPrimera(int idHorarioDeControl)
+        {
+            var result = 0;
+            using (var db = new ApplicationDbContext())
+            {
+                var horario = db.HorariosDeControl.Where(h => h.IdHorarioDeControl == idHorarioDeControl).Include(h => h.Incidencias).Single();
+                result = horario.Incidencias.Where(i => i.Tipo == TipoIncidencia.Primera).Sum(i=>i.CantidadIncidencia);
+            }
+            return result;
+        }
+        public static int TotalIncidenciasDefectoPorPie(int idHorarioDeControl, Pie pie, TipoDefecto tipoDefecto)
+        {
+            var result = 0;
+            using (var db = new ApplicationDbContext())
+            {
+                result = (from hdc in db.HorariosDeControl.Where(h => h.IdHorarioDeControl == idHorarioDeControl)
+                          from i in db.Incidencias.Where(i => i.IdHorarioDeControl == hdc.IdHorarioDeControl && i.Pie == pie)
+                          from d in db.Defectos.Where(d => d.IdDefecto == i.IdDefecto && d.TipoDefecto == tipoDefecto)
+                          select d
+                          ).Count();
+            }
+            return result;
+        }
+
+        #endregion
+
+        public static void GetJornadaActual(string id)
+        {
+            OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
+
+            using (var db = new ApplicationDbContext())
+            {
+                Modelo modelo = db.Modelos.Find(op.Sku);
+                JornadaLaboral jornada = db.JornadasLaborales
+                    .Where(j => j.Numero == id)
+                    .OrderByDescending(j => j.FechaFinJornada)
+                    .FirstOrDefault();
+            }
+        }
+
         public static void CargarAlertas(string id)
         {
             OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
@@ -166,12 +270,11 @@ namespace Services
                     .FirstOrDefault();
                 db.Alertas.Add(new Alerta
                 {
-                    TipoDefecto = Common.TipoDefecto.Observado,
+                    TipoDefecto = TipoDefecto.Observado,
                     IdJornada = jornada.IdJornada,
                     LimiteInferior = modelo.LimiteInferiorDeObservado,
                     LimiteSuperior = modelo.LimiteSuperiorDeObservado
                 });
-                jornada.Alertas.AddRange(db.Alertas.Where(a => a.IdJornada == jornada.IdJornada).ToArray());
                 db.Alertas.Add(new Alerta
                 {
                     TipoDefecto = Common.TipoDefecto.Reproceso,
@@ -179,24 +282,8 @@ namespace Services
                     LimiteInferior = modelo.LimiteInferiorDeReproceso,
                     LimiteSuperior = modelo.LimiteSuperiorDeReproceso
                 });
+                jornada.Alertas.AddRange(db.Alertas.Where(a => a.IdJornada == jornada.IdJornada).ToArray());
                 db.SaveChanges();
-            }
-        }
-        public static void Delete(string id)
-        {
-            try
-            {
-                using (var db = new ApplicationDbContext())
-                {
-                    OrdenDeProduccion OrdenDeProduccion = db.OrdenesDeProduccion.Where(x => x.Numero == id).Single();
-
-                    db.OrdenesDeProduccion.Remove(OrdenDeProduccion);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception e)
-            {
-                throw new ApplicationException("No se puede eliminar la Orden de Produccion" + id);
             }
         }
         public static OrdenDeProduccion GetOP(string user)
@@ -239,10 +326,9 @@ namespace Services
 
             return result;
         }
-
         public static void UpdateCantidadDeParesDePrimera(string Numero, int cantidad)
         {
-            using(var db = new ApplicationDbContext())
+            using (var db = new ApplicationDbContext())
             {
                 var originalEntity = db.OrdenesDeProduccion.Where(x => x.Numero == Numero).Single();
 
@@ -252,7 +338,6 @@ namespace Services
                 db.SaveChanges();
             }
         }
-
         public static HorarioDeControl ObtenerHorarioDeControl(string NumeroDeOrden)
         {
             HorarioDeControl horarioDeControl = null;

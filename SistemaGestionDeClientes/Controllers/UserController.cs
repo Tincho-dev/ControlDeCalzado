@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace ControlDeCalzado.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly UserService userService = new UserService();

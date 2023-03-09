@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Common;
 using Model.Domain.ControlDeCalzado;
@@ -10,6 +11,8 @@ namespace ControlDeCalzado.Controllers
     public class OrdenDeProduccionController : Controller
     {
 
+        #region CRUD
+        [Authorize]
         // GET: OrdenDeProduccion
         public ActionResult Index()
         {
@@ -17,37 +20,15 @@ namespace ControlDeCalzado.Controllers
             return View(OrdenDeProducciones);
         }
 
+        [Authorize]
         // GET: OrdenDeProduccion/Details/5
         public ActionResult Details(string id)
         {
             var OrdenDeProduccion = OrdenDeProduccionService.Get(id);
             return View(OrdenDeProduccion);
         }
-        
-        // GET: OrdenDeProduccion/Details/5
-        public ActionResult IniciarInspeccion(string id)
-        {
-            ViewBag.cantidadReprocesoIzq = 0;
-            OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
-            OrdenDeProduccionService.AgregarJornada(id);
-            OrdenDeProduccionService.AgregarHorarioDeControl(id);
-            OrdenDeProduccionService.CargarAlertas(id);
-            ViewBag.Defectos = new SelectList(DefectoService.GetAll(), "IdDefecto", "DescripcionDefecto");
 
-            return View(op);
-        }
-
-        public ActionResult ContinuarInspeccion(string id)
-        {
-            OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
-            //OrdenDeProduccionService.AgregarJornada(id);
-            OrdenDeProduccionService.AgregarHorarioDeControl(id);
-            OrdenDeProduccionService.CargarAlertas(id);
-            ViewBag.Defectos = new SelectList(DefectoService.GetAll(), "IdDefecto", "DescripcionDefecto");
-
-            return View(op);
-        }
-
+        [Authorize(Roles = "Admin")]
         // GET: OrdenDeProduccion/Create
         public ActionResult Create()
         {
@@ -59,6 +40,7 @@ namespace ControlDeCalzado.Controllers
         }
 
         // POST: OrdenDeProduccion/Create
+        [Authorize]
         [HttpPost]
         public ActionResult Create(OrdenDeProduccion OrdenDeProduccion)
         {
@@ -73,6 +55,7 @@ namespace ControlDeCalzado.Controllers
         }
 
         // GET: OrdenDeProduccion/Edit/5
+        [Authorize]
         public ActionResult Edit(string id)
         {
             var model = OrdenDeProduccionService.Get(id);
@@ -93,6 +76,7 @@ namespace ControlDeCalzado.Controllers
 
         // POST: OrdenDeProduccion/Edit/5
         [HttpPost]
+        [Authorize]
         public ActionResult Edit(string id, OrdenDeProduccion OrdenDeProduccion)
         {
             try
@@ -111,6 +95,7 @@ namespace ControlDeCalzado.Controllers
         }
 
         // GET: OrdenDeProduccion/Delete/5
+        [Authorize]
         public ActionResult Delete(string id)
         {
             var model = OrdenDeProduccionService.Get(id);
@@ -119,6 +104,7 @@ namespace ControlDeCalzado.Controllers
 
         // POST: OrdenDeProduccion/Delete/5
         [HttpPost]
+        [Authorize]
         public ActionResult Delete(string id, OrdenDeProduccion OrdenDeProduccion)
         {
             try
@@ -132,47 +118,74 @@ namespace ControlDeCalzado.Controllers
                 return View();
             }
         }
+        #endregion
 
+        [HttpPost]
+        public JsonResult ActualizarCantidad(string numeroDeOrden, int cantidad)
+        {
+            //var op = OrdenDeProduccionService.Get(numeroDeOrden);
+            int idHorarioDeControl = OrdenDeProduccionService.HorarioActual(numeroDeOrden);
+
+            OrdenDeProduccionService.RegistrarIncidencia(cantidad, idHorarioDeControl);
+            //guardar valor en base de datos
+            int nuevaCantidad = OrdenDeProduccionService.TotalIncidenciasPrimera(idHorarioDeControl);
+            OrdenDeProduccionService.UpdateCantidadDeParesDePrimera(numeroDeOrden, nuevaCantidad);
+
+            return Json(nuevaCantidad);
+        }
+        public ActionResult IniciarInspeccion(string id)
+        {
+            ViewBag.cantidadReprocesoIzq = 0;
+            OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
+            OrdenDeProduccionService.AgregarJornada(id);
+            OrdenDeProduccionService.AgregarHorarioDeControl(id);
+            OrdenDeProduccionService.CargarAlertas(id);
+            ViewBag.Defectos = new SelectList(DefectoService.GetAll(), "IdDefecto", "DescripcionDefecto");
+            ViewBag.Modelo = ModeloService.Get(op.Sku);
+            ViewBag.Color = ColorService.Get(op.CodigoColor);
+            ViewBag.DefectosR = DefectoService.GetAll().Where(d => d.TipoDefecto == Common.TipoDefecto.Reproceso);
+            ViewBag.DefectosO = DefectoService.GetAll().Where(d => d.TipoDefecto == Common.TipoDefecto.Observado);
+            ViewBag.horaActual = DateTime.Now.TimeOfDay;
+
+            return View("Inspeccionar", op);
+        }
+        public ActionResult ContinuarInspeccion(string id)
+        {
+            OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
+            //OrdenDeProduccionService.AgregarJornada(id);
+            OrdenDeProduccionService.AgregarHorarioDeControl(id);
+            OrdenDeProduccionService.CargarAlertas(id);
+            ViewBag.Defectos = new SelectList(DefectoService.GetAll(), "IdDefecto", "DescripcionDefecto");
+            ViewBag.Modelo = ModeloService.Get(op.Sku);
+            ViewBag.Color = ColorService.Get(op.CodigoColor);
+            ViewBag.DefectosR = DefectoService.GetAll().Where(d => d.TipoDefecto == Common.TipoDefecto.Reproceso);
+            ViewBag.DefectosO = DefectoService.GetAll().Where(d => d.TipoDefecto == Common.TipoDefecto.Observado);
+            ViewBag.horaActual = DateTime.Now.TimeOfDay;
+
+            return View("Inspeccionar", op);
+        }
         public ActionResult ChangeUserToOP(string numero, string user)
         {
             var Op = OrdenDeProduccionService.GetOP(user);
 
             if (Op != null)
             {
-                throw new ApplicationException("El Usuario ya tiene una Op asociada");                  
+                throw new ApplicationException("El Usuario ya tiene una Op asociada");
             }
 
             OrdenDeProduccionService.ChangeUserToOp(numero, user);
             return RedirectToAction("Index");
         }
-
         [HttpPost]
-        public JsonResult ActualizarCantidad(string numeroDeOrden, int cantidad)
+        public JsonResult RegistrarDefecto(string NumeroOp, int cantidad, int idDefecto, Pie pie, TipoDefecto tipoDefecto)
         {
-            var op = OrdenDeProduccionService.Get(numeroDeOrden);
-
-            int nuevaCantidad = op.CantidadDePrimera + cantidad;
-
-            OrdenDeProduccionService.RegistrarIncidencia(cantidad);
-            OrdenDeProduccionService.ObtenerHorarioDeControl().Incidencias.Add();
-            //guardar valor en base de datos
-            OrdenDeProduccionService.UpdateCantidadDeParesDePrimera(numeroDeOrden, nuevaCantidad);
-
-            return Json(nuevaCantidad);
-        }
-
-        public JsonResult RegistrarDefecto(string idDefecto, string pie,int cantidad, string NumeroOp)
-        {
-            //Registrarmos nueva incidencia y la asociamos a la op
-            IncidenciaService.RegistrarIncidenciaOp(NumeroOp, idDefecto, pie);
-            //llamamos al servicio donde hace una consulta que devuelve la cantidad total de incidencias con ese defecfto
-            int totalInicidencias = IncidenciaService.GetTotalIncidenciasOpDefectoPie(NumeroOp, IdDefecto, pie);
+            int idHorarioDeControl = OrdenDeProduccionService.HorarioActual(NumeroOp);
+            OrdenDeProduccionService.RegistrarIncidencia( cantidad,  idDefecto,  pie,  idHorarioDeControl);
+            int totalInicidencias = OrdenDeProduccionService.TotalIncidenciasDefectoPorPie(idHorarioDeControl, pie, tipoDefecto);
 
             return Json(totalInicidencias);
         }
-
-
-        public JsonResult ActualizarCantidadDefectosReprocesoIzq(string numeroDeOrden,int cantidad)
+        public JsonResult ActualizarCantidadDefectosReprocesoIzq(string numeroDeOrden, int cantidad)
         {
             int cantidadReprocesoIzq = (int)Session["cantidadReprocesoIzq"];
 

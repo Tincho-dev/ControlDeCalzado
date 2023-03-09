@@ -1,4 +1,9 @@
 /* BEGIN EXTERNAL SOURCE */
+function name54() {
+history.go(-1);
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
 function name66() {
 history.go(-1);
 }

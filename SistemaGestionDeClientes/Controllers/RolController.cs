@@ -4,18 +4,19 @@ namespace ControlDeCalzado.Controllers
 {
     public class RolController : Controller
     {
+        [Authorize(Roles = "Admin")]
         // GET: Rol
         public ActionResult Index()
         {
             return View();
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Rol/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Rol/Create
         public ActionResult Create()
         {

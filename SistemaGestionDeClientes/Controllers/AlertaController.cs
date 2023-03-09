@@ -8,12 +8,14 @@ namespace SistemaGestionDeClientes.Controllers
 {
     public class AlertaController : Controller
     {
+        [Authorize]
         // GET: Alerta
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult Semaforo()
         {
             int cantidadActual = 45;

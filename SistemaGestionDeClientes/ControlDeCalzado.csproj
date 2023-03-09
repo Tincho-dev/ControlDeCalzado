@@ -403,6 +403,7 @@
     <Content Include="Views\OrdenDeProduccion\IniciarInspeccion.cshtml" />
     <Content Include="Views\Alerta\Semaforo.cshtml" />
     <Content Include="Views\OrdenDeProduccion\ContinuarInspeccion.cshtml" />
+    <Content Include="Views\OrdenDeProduccion\Inspeccionar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

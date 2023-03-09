@@ -12,6 +12,7 @@ namespace ControlDeCalzado.Controllers
 {
     public class DefectoController : Controller
     {
+        [Authorize(Roles = "Admin, SuperLinea")]
         // GET: Defecto
         public ActionResult Index()
         {
@@ -19,6 +20,7 @@ namespace ControlDeCalzado.Controllers
             return View(Defectos);
         }
 
+        [Authorize(Roles = "Admin, SuperLinea")]
         // GET: Defecto/Details/5
         public ActionResult Details(int id)
         {
@@ -26,6 +28,7 @@ namespace ControlDeCalzado.Controllers
             return View(Defecto);
         }
 
+        [Authorize(Roles = "Admin, SuperLinea")]
         // GET: Defecto/Create
         public ActionResult Create()
         {
