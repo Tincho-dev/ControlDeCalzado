@@ -10,7 +10,7 @@ namespace SistemaGestionDeClientes.Controllers
 {
     public class TurnoController : Controller
     {
-		[Authorize]
+		[Authorize(Roles = "Admin, SuperLinea")]
 		// GET: Turno
 		public ActionResult Index()
         {
@@ -46,8 +46,9 @@ namespace SistemaGestionDeClientes.Controllers
 			return View(turno);
 		}
 
-        // GET: Turno/Edit/5
-        public ActionResult Edit(int id)
+		[Authorize(Roles = "Admin")]
+		// GET: Turno/Edit/5
+		public ActionResult Edit(int id)
         {
 			var turno = TurnoService.Get(id);
 			return View(turno);
@@ -72,8 +73,9 @@ namespace SistemaGestionDeClientes.Controllers
 			}
 		}
 
-        // GET: Turno/Delete/5
-        public ActionResult Delete(int id)
+		[Authorize(Roles = "Admin")]
+		// GET: Turno/Delete/5
+		public ActionResult Delete(int id)
         {
 			var turno = TurnoService.Get(id);
 

@@ -1,4 +1,69 @@
 /* BEGIN EXTERNAL SOURCE */
+function name388() {
+BotonSumarObsIzq()
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name389() {
+BotonRestarObsIzq
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name390() {
+BotonSumarRepro
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+
+        $(document).ready(function () {
+            $('#btnSumar').click(function () {
+                actualizarCantidad(1);
+            });
+
+            $('#btnRestar').click(function () {
+                actualizarCantidad(-1);
+            });
+        });
+
+        function actualizarCantidad(cantidad) {
+            var numeroDeOrden = "/***********/";
+            var cantidadActual = parseInt($('#lblcantidad').text());
+            var nuevaCantidad = cantidadActual + cantidad;
+
+            if (nuevaCantidad < 0) {
+                alert('No se permiten numeros negativos');
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/****************************************************/",
+                data: { numeroDeOrden: numeroDeOrden, cantidad: cantidad },
+                success: function (response) {
+                    $('#lblcantidad').text(response);
+                }
+            });
+        }
+    
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+
+        $(document).on('click', '.detail-link', function () {
+            var id = $(this).data('id');
+            $.ajax({
+                url: '/OrdenDeProduccion/Details/' + id,
+                type: 'GET',
+                success: function (result) {
+                    $('#detail-container').html(result);
+                }
+            });
+        });
+    
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
 function name62() {
 BotonSumarObsIzq/*****/
 /* END EXTERNAL SOURCE */

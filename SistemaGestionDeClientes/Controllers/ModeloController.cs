@@ -7,7 +7,7 @@ namespace ControlDeCalzado.Controllers
 {
     public class ModeloController : Controller
     {
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         // GET: Modelo
         public ActionResult Index()
         {
@@ -15,7 +15,7 @@ namespace ControlDeCalzado.Controllers
             return View(modelos);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         // GET: Modelo/Details/5
         public ActionResult Details(string id)
         {
@@ -43,6 +43,7 @@ namespace ControlDeCalzado.Controllers
             return View(modelo);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Modelo/Edit/5
         public ActionResult Edit(string id)
         {
@@ -69,6 +70,7 @@ namespace ControlDeCalzado.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Modelo/Delete/5
         public ActionResult Delete(string id)
         {

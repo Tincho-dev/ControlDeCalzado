@@ -21,6 +21,230 @@ using System.Web.UI;
 using System.Web.WebPages;
 using System.Web.WebPages.Html;
 
+#line 2 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+using Services;
+
+#line default
+#line hidden
+
+public class _Page_Details_cshtml : System.Web.WebPages.WebPage {
+private static object @__o;
+#line hidden
+public _Page_Details_cshtml() {
+}
+protected System.Web.HttpApplication ApplicationInstance {
+get {
+return ((System.Web.HttpApplication)(Context.ApplicationInstance));
+}
+}
+public override void Execute() {
+
+#line 1 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+__o = model;
+
+
+#line default
+#line hidden
+
+#line 3 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+  
+    ViewBag.Title = "Orden de Produccion";
+    var role = Services.UserService.GetRole(Common.CurrentUser.Get.UserId).Role;
+
+
+#line default
+#line hidden
+
+#line 4 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayNameFor(model => model.FechaDeInicio);
+
+
+#line default
+#line hidden
+
+#line 5 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayFor(model => model.FechaDeInicio);
+
+
+#line default
+#line hidden
+
+#line 6 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayNameFor(model => model.FechaDeFin);
+
+
+#line default
+#line hidden
+
+#line 7 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayFor(model => model.FechaDeFin);
+
+
+#line default
+#line hidden
+
+#line 8 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayNameFor(model => model.CantidadDePrimera);
+
+
+#line default
+#line hidden
+
+#line 9 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayFor(model => model.CantidadDePrimera);
+
+
+#line default
+#line hidden
+
+#line 10 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayNameFor(model => model.CantidadPorHermanado);
+
+
+#line default
+#line hidden
+
+#line 11 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayFor(model => model.CantidadPorHermanado);
+
+
+#line default
+#line hidden
+
+#line 12 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayNameFor(model => model.CodigoColor);
+
+
+#line default
+#line hidden
+
+#line 13 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayFor(model => model.CodigoColor);
+
+
+#line default
+#line hidden
+
+#line 14 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayNameFor(model => model.Sku);
+
+
+#line default
+#line hidden
+
+#line 15 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayFor(model => model.Sku);
+
+
+#line default
+#line hidden
+
+#line 16 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayNameFor(model => model.IdLinea);
+
+
+#line default
+#line hidden
+
+#line 17 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+       __o = Html.DisplayFor(model => model.IdLinea);
+
+
+#line default
+#line hidden
+
+#line 18 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+    if ((role == "Admin") || (role == "SuperLinea"))
+    {
+    
+
+#line default
+#line hidden
+
+#line 19 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+__o =          ctionLink("Editar OP", "Edit", new { id = Model.Numero }, new { @class = "btn" });
+
+
+#line default
+#line hidden
+
+#line 20 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+                                                                                                             else
+   f (OrdenDeProduccionService.JornadaActiva(Model.Numero))
+    {
+    
+
+#line default
+#line hidden
+    {
+    
+  }
+\Urs\user\AppData\Local\Temp\116662146E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+__o = Html.ActionLink("Continuar Inspeccio__o = Htm   l.Ac       nLink("Continuar Inspeccion", "ContinuarInspeccion", new { id = Model.Numero }, new { @class = "btn" }); 
+C
+ont    :sersser\AppData\Local\Temp\112268446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+                                                                                                                                                                                     e
+    {
+    
+  }
+  
+  a
+btn" });
+
+\user\AppData23ocal\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+__o = Html.ActionLink("In__o = Html.ActionLink("In   iciar In       ccion", "IniciarInspeccion", new { id = Model.Numero }, new { @class = "btn" }); 
+ 
+Ins    }
+   
+    }
+
+#line default24#line hidden
+
+#line 25 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProd                                                                                                                                                              lt
+#line hidden
+25line 27 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+                       null, new { @class="btn" });
+
+
+#line default
+#line hidden
+DefineSection("Scripts", () => {
+
+
+#line 27 "C:\Users\user\AppD26a\Loc28\Temp\11286844627AAC26DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
+__o = Scripts.Render("~/bundles/jqueryval");
+
+
+#line default
+#line hidden
+});
+
+}
+}
+}
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//     Runtime Version:4.0.30319.42000
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+namespace ASP {
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Helpers;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.WebPages;
+using System.Web.WebPages.Html;
+
 #line 2 "C:\Users\user\AppData\Local\Temp\131B2E59C3713A23A87F597EB723B29CDDF0\4\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Details.cshtml"
 using Services;
 

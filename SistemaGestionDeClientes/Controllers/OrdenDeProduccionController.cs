@@ -28,7 +28,7 @@ namespace ControlDeCalzado.Controllers
             return View(OrdenDeProduccion);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SuperLinea")]
         // GET: OrdenDeProduccion/Create
         public ActionResult Create()
         {
@@ -40,7 +40,7 @@ namespace ControlDeCalzado.Controllers
         }
 
         // POST: OrdenDeProduccion/Create
-        [Authorize]
+        [Authorize(Roles ="SuperLinea")]
         [HttpPost]
         public ActionResult Create(OrdenDeProduccion OrdenDeProduccion)
         {
@@ -55,7 +55,7 @@ namespace ControlDeCalzado.Controllers
         }
 
         // GET: OrdenDeProduccion/Edit/5
-        [Authorize]
+        [Authorize(Roles = "SuperLinea")]
         public ActionResult Edit(string id)
         {
             var model = OrdenDeProduccionService.Get(id);
@@ -76,7 +76,7 @@ namespace ControlDeCalzado.Controllers
 
         // POST: OrdenDeProduccion/Edit/5
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles ="SuperLinea")]
         public ActionResult Edit(string id, OrdenDeProduccion OrdenDeProduccion)
         {
             try
@@ -119,13 +119,16 @@ namespace ControlDeCalzado.Controllers
             }
         }
         #endregion
-
+        #region VistasInspeccion
+        [Authorize(Roles = "SuperCalidad")]
         public ActionResult IniciarInspeccion(string id)
         {
             OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
             OrdenDeProduccionService.AgregarJornada(id);
             OrdenDeProduccionService.AgregarHorarioDeControl(id);
             OrdenDeProduccionService.CargarAlertas(id);
+            OrdenDeProduccionService.IniciarOp(id);
+
             ViewBag.Defectos = new SelectList(DefectoService.GetAll(), "IdDefecto", "DescripcionDefecto");
             ViewBag.Modelo = ModeloService.Get(op.Sku);
             ViewBag.Color = ColorService.Get(op.CodigoColor);
@@ -136,12 +139,16 @@ namespace ControlDeCalzado.Controllers
 
             return View("Inspeccionar", op);
         }
+
+        [Authorize(Roles = "SuperCalidad")]
         public ActionResult ContinuarInspeccion(string id)
         {
             OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
             //OrdenDeProduccionService.AgregarJornada(id);
             OrdenDeProduccionService.AgregarHorarioDeControl(id);
             OrdenDeProduccionService.CargarAlertas(id);
+            OrdenDeProduccionService.IniciarOp(id);
+
             ViewBag.Defectos = new SelectList(DefectoService.GetAll(), "IdDefecto", "DescripcionDefecto");
             ViewBag.Modelo = ModeloService.Get(op.Sku);
             ViewBag.Color = ColorService.Get(op.CodigoColor);
@@ -152,7 +159,41 @@ namespace ControlDeCalzado.Controllers
 
             return View("Inspeccionar", op);
         }
+        #endregion
+        #region POST Incidencias
+        [HttpPost]
+        public JsonResult ActualizarCantidad(string numeroDeOrden, int idHorarioDeControl, int cantidad)
+        {
+            OrdenDeProduccionService.RegistrarIncidencia(cantidad, idHorarioDeControl);
+            //guardar valor en base de datos
+            int nuevaCantidad = OrdenDeProduccionService.TotalIncidenciasPrimera(idHorarioDeControl);
+            OrdenDeProduccionService.UpdateCantidadDeParesDePrimera(numeroDeOrden, nuevaCantidad);
 
+            return Json(nuevaCantidad);
+        }
+        [HttpPost]
+        public JsonResult RegistrarDefecto(int idHorarioDeControl, int cantidad, int idDefecto, Pie pie, TipoDefecto tipoDefecto)
+        {
+            OrdenDeProduccionService.RegistrarIncidencia(cantidad, idDefecto, pie, idHorarioDeControl);
+            int totalInicidencias = OrdenDeProduccionService.TotalIncidenciasDefectoPorPie(idHorarioDeControl, pie, tipoDefecto, idDefecto);
+
+            return Json(totalInicidencias);
+        }
+        #endregion
+
+        #region OP
+        public ActionResult TerminarOp(string id)
+        {
+            OrdenDeProduccionService.TerminarOp(id);
+            return RedirectToAction("Details", new { id = id });
+        }
+
+        public ActionResult PausarOp(string id)
+        {
+            OrdenDeProduccionService.PausarOp(id);
+            return RedirectToAction("Details", new { id = id });  
+        }
+        #endregion
         //public ActionResult ChangeUserToOP(string numero, string user)
         //{
         //    var Op = OrdenDeProduccionService.GetOP(user);
@@ -166,25 +207,5 @@ namespace ControlDeCalzado.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        #region Incidencias
-        [HttpPost]
-        public JsonResult ActualizarCantidad(int idHorarioDeControl, int cantidad)
-        {
-            OrdenDeProduccionService.RegistrarIncidencia(cantidad, idHorarioDeControl);
-            //guardar valor en base de datos
-            int nuevaCantidad = OrdenDeProduccionService.TotalIncidenciasPrimera(idHorarioDeControl);
-            //OrdenDeProduccionService.UpdateCantidadDeParesDePrimera(numeroDeOrden, nuevaCantidad);
-
-            return Json(nuevaCantidad);
-        }
-        [HttpPost]
-        public JsonResult RegistrarDefecto(int idHorarioDeControl, int cantidad, int idDefecto, Pie pie, TipoDefecto tipoDefecto)
-        {
-            OrdenDeProduccionService.RegistrarIncidencia( cantidad,  idDefecto,  pie,  idHorarioDeControl);
-            int totalInicidencias = OrdenDeProduccionService.TotalIncidenciasDefectoPorPie(idHorarioDeControl, pie, tipoDefecto);
-
-            return Json(totalInicidencias);
-        }
-        #endregion
     }
 }

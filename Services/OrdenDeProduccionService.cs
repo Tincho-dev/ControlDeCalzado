@@ -71,7 +71,7 @@ namespace Services
                     OrdenDeProduccion.UserId = model.UserId;
                     //validar op
                     OrdenDeProduccion.FechaDeInicio = model.FechaDeInicio;
-                    OrdenDeProduccion.Estado = Common.EstadoOp.Pausada;
+                    OrdenDeProduccion.Estado = EstadoOp.Pausada;
                     //OrdenDeProduccion.FechaDeFin = model.FechaDeInicio;
                     //OrdenDeProduccion.CantidadDePrimera = model.CantidadDePrimera;
                     //OrdenDeProduccion.CantidadPorHermanado = model.CantidadPorHermanado;
@@ -122,6 +122,7 @@ namespace Services
             }
         }
         #endregion
+
         public static bool JornadaActiva(string numero)
         {
             var idTurno = TurnoService.GetId();
@@ -164,7 +165,9 @@ namespace Services
                 {
                     HoraInicio = DateTime.Now,
                     HoraFin = FinJornada,
-                    IdJornada = db.JornadasLaborales.Where(j => j.FechaFinJornada == FinJornada && j.Numero == Numero).Single().IdJornada,
+                    IdJornada = db.JornadasLaborales
+                    .Where(j => j.FechaFinJornada == FinJornada && j.Numero == Numero)
+                    .OrderByDescending(j=>j.FechaInicioJornada).First().IdJornada,
                 };
                 db.HorariosDeControl.Add(horarioDeControl);
                 db.SaveChanges();
@@ -187,17 +190,15 @@ namespace Services
                 db.SaveChanges();
             }
         }
-
         public static int HorarioActual(string numeroOp)
         {
             using (var db = new ApplicationDbContext())
             {
                 return (from j in db.JornadasLaborales.Where(j => j.Numero == numeroOp).OrderByDescending(j => j.FechaInicioJornada)
-                        from hdc in db.HorariosDeControl.Where(hd => hd.IdJornada == j.IdJornada).OrderByDescending(h => h.HoraInicio)
-                        select hdc).FirstOrDefault().IdHorarioDeControl;
+                        from hdc in db.HorariosDeControl.Where(hd => hd.IdJornada == j.IdJornada).OrderBy(h => h.HoraInicio)
+                        select hdc).OrderByDescending(h=>h.HoraInicio).FirstOrDefault().IdHorarioDeControl;
             }
         }
-
         public static void RegistrarIncidencia(int cantidad, int idDefecto, Pie pie, int idHorarioDeControl)
         {
             Incidencia incidencia = new Incidencia()
@@ -216,7 +217,7 @@ namespace Services
                 db.SaveChanges();
             }
         }
-
+        
         #region Consultas
         public static int TotalIncidenciasPrimera(int idHorarioDeControl)
         {
@@ -228,23 +229,24 @@ namespace Services
             }
             return result;
         }
-
-        public static int TotalIncidenciasDefectoPorPie(int idHorarioDeControl, Pie pie, TipoDefecto tipoDefecto)
+        public static int TotalIncidenciasDefectoPorPie(int idHorarioDeControl, Pie pie, TipoDefecto tipoDefecto, int idDefecto)
         {
             var result = 0;
             using (var db = new ApplicationDbContext())
             {
-                result = (from hdc in db.HorariosDeControl.Where(h => h.IdHorarioDeControl == idHorarioDeControl)
+                result = (
                           from d in db.Defectos.Where(d => d.TipoDefecto == tipoDefecto)
-                          from i in db.Incidencias.Where(i => i.IdHorarioDeControl == hdc.IdHorarioDeControl && i.Pie == pie && i.IdDefecto == d.IdDefecto)
+                          from i in db.Incidencias
+                          .Where(i => i.IdHorarioDeControl == idHorarioDeControl && 
+                          i.Pie == pie && 
+                          i.IdDefecto == d.IdDefecto &&
+                          i.IdDefecto == idDefecto)
                           select i
                           ).Sum(i=>i.CantidadIncidencia);
             }
             return result;
         }
-
         #endregion
-
         public static void GetJornadaActual(string id)
         {
             OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
@@ -258,7 +260,6 @@ namespace Services
                     .FirstOrDefault();
             }
         }
-
         public static void CargarAlertas(string id)
         {
             OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
@@ -298,7 +299,7 @@ namespace Services
             }
             return result;
         }
-        public static void ChangeUserToOp(string numero, string userid)
+        public static void AsignarSupervisorCalidad(string numero, string userid)
         {
             try
             {
@@ -353,6 +354,66 @@ namespace Services
             }
             return horarioDeControl;
         }
+        #region Updates
+
+        public static void IniciarOp(string Numero)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var original = db.OrdenesDeProduccion.Where(x => x.Numero == Numero).Single();
+
+                original.Estado = EstadoOp.Iniciada;
+
+                db.Entry(original).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+        
+        public static void CambiarEstadoOrdenDeProduccion(string Numero, EstadoOp estadoOp)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var original = db.OrdenesDeProduccion.Where(x => x.Numero == Numero).Single();
+
+                if (estadoOp == EstadoOp.Finalizada)
+                {
+                    original.Estado = EstadoOp.Finalizada;
+                }
+
+                original.Estado = estadoOp;
+
+                db.Entry(original).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+
+        public static void TerminarOp(string Numero)
+        {
+            using(var db = new ApplicationDbContext())
+            {
+                var original = db.OrdenesDeProduccion.Where(x => x.Numero == Numero).Single();
+
+                original.Estado = EstadoOp.Finalizada;
+                original.FechaDeFin = DateTime.Now;
+
+                db.Entry(original).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+
+        public static void PausarOp(string Numero)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var original = db.OrdenesDeProduccion.Where(x => x.Numero == Numero).Single();
+
+                original.Estado = EstadoOp.Pausada;
+
+                db.Entry(original).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+        #endregion
     }
 }
 

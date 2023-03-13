@@ -1,6 +1,4 @@
 ﻿@model Model.Domain.ControlDeCalzado.OrdenDeProduccion
-@using Services
-@using Model.Domain.ControlDeCalzado
 @using Common
 @using System.Text.RegularExpressions;
 
@@ -20,7 +18,8 @@
     <div class="col-md-4">
         <ul>
             <li>
-                <h4 style="text-align:left;">Fecha de Inicio: @Model.FechaDeInicio</h4>
+
+                <h4 style="text-align:left;">Fecha de Inicio: @Model.FechaDeInicio.ToString("dd/MM/yyyy")</h4>
             </li>
             <li>
                 <h4 style="text-align:left;">Línea: @Model.IdLinea</h4>
@@ -115,25 +114,25 @@
 
             @foreach (var item in ViewBag.DefectosO)
             {
-                <tr>
-                    <td>
-                        <p>
-                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Izquierdo),@((int)TipoDefecto.Observado),-1)">-</button>
-                            <span id="@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador">func(@item.IdDefecto)</span>
-                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Izquierdo),@((int)TipoDefecto.Observado),1)">+</button>
-                        </p>
-                    </td>
-                    <td>
-                        @Html.Raw(item.DescripcionDefecto)
-                    </td>
-                    <td>
-                        <p>
-                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Derecho),@((int)TipoDefecto.Observado),-1)">-</button>
-                            <span id="@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador"></span>
-                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Derecho),@((int)TipoDefecto.Observado),1)">+</button>
-                        </p>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    <p>
+                        <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@(item.IdDefecto)Izquierdo', @((int)Pie.Izquierdo),@((int)TipoDefecto.Observado),-1)">-</button>
+                        <span id="@(item.IdDefecto)Izquierdo">0</span>
+                        <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@(item.IdDefecto)Izquierdo', @((int)Pie.Izquierdo),@((int)TipoDefecto.Observado),1)">+</button>
+                    </p>
+                </td>
+                <td>
+                    @Html.Raw(item.DescripcionDefecto)
+                </td>
+                <td>
+                    <p>
+                        <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@(item.IdDefecto)Derecho', @((int)Pie.Derecho),@((int)TipoDefecto.Observado),-1)">-</button>
+                        <span id="@(item.IdDefecto)Derecho">0</span>
+                        <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@(item.IdDefecto)Derecho', @((int)Pie.Derecho),@((int)TipoDefecto.Observado),1)">+</button>
+                    </p>
+                </td>
+            </tr>
             }
 
         </table>
@@ -142,7 +141,7 @@
         <table class="table">
             <tr>
                 <th>
-                    Izquiero
+                    Izquierdo
                 </th>
                 <th>
                     Reproceso
@@ -154,35 +153,34 @@
 
             @foreach (var item in ViewBag.DefectosR)
             {
-                <tr>
-                    <td>
-                        <p>
-                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Izquierdo),@((int)TipoDefecto.Reproceso),-1)">-</button>
-                            <span id="@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador"></span>
-                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Izquierdo),@((int)TipoDefecto.Reproceso),1)">+</button>
-                        </p>
-                    </td>
-                    <td>
-                        @Html.Raw(item.DescripcionDefecto)
-                    </td>
-                    <td>
-                        <p>
-                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Derecho),@((int)TipoDefecto.Reproceso),-1)">-</button>
-                            <span id="@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador"></span>
-                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Derecho),@((int)TipoDefecto.Reproceso),1)">+</button>
-                        </p>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    <p>
+                        <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@(item.IdDefecto)Izquierdo', @((int)Pie.Izquierdo),@((int)TipoDefecto.Reproceso),-1)">-</button>
+                        <span id="@(item.IdDefecto)Izquierdo">0</span>
+                        <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@(item.IdDefecto)Izquierdo', @((int)Pie.Izquierdo),@((int)TipoDefecto.Reproceso),1)">+</button>
+                    </p>
+                </td>
+                <td>
+                    @Html.Raw(item.DescripcionDefecto)
+                </td>
+                <td>
+                    <p>
+                        <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@(item.IdDefecto)Derecho', @((int)Pie.Derecho),@((int)TipoDefecto.Reproceso),-1)">-</button>
+                        <span id="@(item.IdDefecto)Derecho">0</span>
+                        <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@(item.IdDefecto)Derecho', @((int)Pie.Derecho),@((int)TipoDefecto.Reproceso),1)">+</button>
+                    </p>
+                </td>
+            </tr>
             }
         </table>
     </div> <!-- CIERRE COL 2 DE TABLA DE DEFECTO DE REPROCESO-->
 </div> <!-- CIERRE DE ROW 4 DE TABLAS DE DEFECTOS-->
-<p id="${descripcionDefecto}Contador">2</p>
-<p id=""${descripcionDefecto}Contador"">3</p>
 <div>
-    <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a Detalles</a>
-    @Html.ActionLink("Pausar OP", "Detalles", "OrdenDeProduccion", new { numero = Model.Numero }, new { @class = "btn" })
-    @Html.ActionLink("Terminar OP", "Detalles", "OrdenDeProduccion", new { numero = Model.Numero }, new { @class = "btn" })
+    <div id="detail-container">
+        @Html.ActionLink("Pausar OP", "PausarOp", "OrdenDeProduccion", new { id = Model.Numero }, new { @class = "btn" })
+        @Html.ActionLink("Terminar OP", "TerminarOp", "OrdenDeProduccion", new { id = Model.Numero }, new { @class = "btn" })
+    </div>
 </div>
 
 
@@ -191,7 +189,7 @@
 
     @Scripts.Render("~/bundles/jqueryval")
     @*Contador Pares de Primera*@
-    <script>
+<script>
 		$(document).ready(function () {
 			$('#btnSumar').click(function () {
                 actualizarCantidad(1);
@@ -203,6 +201,7 @@
         });
 
         function actualizarCantidad(cantidad) {
+            var numeroDeOrden = "@Model.Numero";
             var cantidadActual = parseInt($('#lblcantidad').text());
             var nuevaCantidad = cantidadActual + cantidad;
 
@@ -214,7 +213,8 @@
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("ActualizarCantidad", "OrdenDeProduccion")",
-				data: {
+                data: {
+                    numeroDeOrden: numeroDeOrden,
                     idHorarioDeControl: parseInt(@ViewBag.IdHorarioDeControl),
 					cantidad: cantidad
 				},
@@ -224,7 +224,7 @@
             });
         }
 
-    </script>
+</script>
 
 
     <!--Registrar Defecto-->
@@ -251,8 +251,9 @@
 						pie:pie,
 						tipoDefecto:tipoDefecto},
 				success: function (response) {
-					console.log("Defecto registreado");
+					console.log("Defecto registrado");
 					console.log(cantidadActual);
+					console.log(response);
 					console.log(id);
                     $(`#${id}`).text(response);
                 }
@@ -260,4 +261,19 @@
         }
 
     </script>
+
+    <!--Actualizar Vista Detalle-->
+    @*<script>
+        $(document).on('click', '.detail-link', function () {
+            var id = $(this).data('id');
+            $.ajax({
+                url: '/OrdenDeProduccion/Details/' + id,
+                type: 'GET',
+                success: function (result) {
+                    $('#detail-container').html(result);
+                }
+            });
+        });
+    </script>*@
+
 }

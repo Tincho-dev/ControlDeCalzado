@@ -1,5 +1,110 @@
 /* BEGIN EXTERNAL SOURCE */
-function name21() {
+function name448() {
+btnActualizarDefecto(/*************/,'/***************/Izquierdo', /*******************/,/***************************/,-1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name449() {
+btnActualizarDefecto(/*************/,'/***************/Izquierdo', /*******************/,/***************************/,1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name450() {
+btnActualizarDefecto(/*************/,'/***************/Derecho', /*****************/,/***************************/,-1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name451() {
+btnActualizarDefecto(/*************/,'/***************/Derecho', /*****************/,/***************************/,1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name452() {
+btnActualizarDefecto(/*************/,'/***************/Izquierdo', /*******************/,/***************************/,-1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name453() {
+btnActualizarDefecto(/*************/,'/***************/Izquierdo', /*******************/,/***************************/,1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name454() {
+btnActualizarDefecto(/*************/,'/***************/Derecho', /*****************/,/***************************/,-1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name455() {
+btnActualizarDefecto(/*************/,'/***************/Derecho', /*****************/,/***************************/,1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+ SOURCE */
+y.go(-1);
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+
+		$(document).ready(function () {
+			$('#btnSumar').click(function () {
+                actualizarCantidad(1);
+            });
+
+            $('#btnRestar').click(function () {
+                actualizarCantidad(-1);
+            });
+        });
+
+/***********/ion actualizarCantidad(cantidad) {
+            var cantidadActual = parseInt($('#lblcantidad').text());
+            var nuevaCantidad = cantidadActual + cantidad;
+
+            if (nuevaCantidad < 0) {
+                alert('No se permiten numeros negativos');
+                return;
+            }
+
+     /****************************************************/          url: "/*************************************************/*************************/              idHorarioDeControl: parseInt(/*************************/),
+					cantidad: cantidad
+				},
+                success: function (response) {
+                    $('#lblcantidad').
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+   }
+
+    
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+
+
+        function btnActualizarDefecto(IdDefecto,id,pie,tipoDefecto,cantidad) {
+			//var cantidadActual = parseInt($('#lblcantidad').text());
+            //var id = `${descripcionDefecto}Contador`;
+            var cantidadActual = parseInt($(`#${id}`).text());
+            var nuevaCantidad = cantidadActual + cantidad;
+
+            if (nuevaCantidad < 0) {
+                alert('No se permiten numeros negativos');
+                return;
+            }
+
+     /**************************************************/            url: "/*********************************************/*************************/ata: {
+						idHorarioDeControl: parseInt(/*************************/),
+						cantidad: cantidad,
+						IdDefecto:IdDefecto,
+						pie:pie,
+						tipoDefecto:tipoDefecto},
+				success: function (response) {
+					console.log("Defecto registreado");
+					console.log(cantidadActual);
+					console.log(id);
+                    $(`#${id}`).
+/* END EXTERNAL SOURCE */
+    }
+         /* BEGIN EXTERNAL SOURCE */
+
+        $(document).on('click', '.detail-link'tion name21() {
 btnRestarReproceso(/**********************/, 
 }
 /* END EXTERNAL SOURCE */

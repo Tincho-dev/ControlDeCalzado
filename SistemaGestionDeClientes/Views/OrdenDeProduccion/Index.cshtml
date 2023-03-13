@@ -11,7 +11,7 @@
 
     <h2>Ordenes de Produccion</h2>
 
-    @if (role == "Admin")
+    @if (role == "SuperLinea")
 {
     <p>
         @Html.ActionLink("Crear Nueva Orden", "Create", "OrdenDeProduccion", new { @class = "btn" })
@@ -49,7 +49,7 @@
             <th></th>
         </tr>
         <tbody id="dataTable">
-            @foreach (var item in Model)
+            @foreach (var item in Model.Where(op=>op.Estado == EstadoOp.Pausada))
         {
             <tr>
                 <td>
@@ -87,7 +87,6 @@
                         Html.ActionLink("Eliminar", "Delete", new { id = item.Numero }, new { @class = "btn" });
                         Html.ActionLink("AsignarOp", "AddUserToOp", new { id = item.Numero }, new { @class = "btn" });
                     }
-
                 </td>
             </tr>
         }
@@ -97,9 +96,3 @@
     <div>
         @Html.ActionLink("Volver al Inicio", "Index", "Home", null, new { @class = "btn" })
     </div>
-
-    @section Scripts {
-
-    }
-
-

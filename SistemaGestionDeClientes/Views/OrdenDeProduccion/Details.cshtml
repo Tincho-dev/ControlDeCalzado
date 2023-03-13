@@ -73,23 +73,23 @@
     @*Al Rol SuperCalidad se le retira la opcion de EditarOP*@
     @if ((role == "Admin") || (role == "SuperLinea"))
     {
-    @Html.ActionLink("Editar OP", "Edit", new { id = Model.Numero }, new { @class = "btn" })
-    }
-
-    @if (OrdenDeProduccionService.JornadaActiva(Model.Numero))
-    {
-    @Html.ActionLink("Continuar Inspeccion", "ContinuarInspeccion", new { id = Model.Numero }, new { @class = "btn" })
+        @Html.ActionLink("Editar OP", "Edit", new { id = Model.Numero }, new { @class = "btn" })
     }
     else
     {
-    @Html.ActionLink("Iniciar Inspeccion", "IniciarInspeccion", new { id = Model.Numero }, new { @class = "btn" })
+        if (OrdenDeProduccionService.JornadaActiva(Model.Numero) && Model.Estado != EstadoOp.Finalizada)
+        {
+            @Html.ActionLink("Continuar Inspeccion", "ContinuarInspeccion", new { id = Model.Numero }, new { @class = "btn" })
+        }
+        else
+        {
+            @Html.ActionLink("Iniciar Inspeccion", "IniciarInspeccion", new { id = Model.Numero }, new { @class = "btn" })
+        }
     }
-
-    @* @Html.ActionLink("Back to List", "Index")*@
 </p>
 <div>
     @*<a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>*@
-    @Html.ActionLink("Volver a la Lista", "Index", null, new { @class="btn" })
+    @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn" })
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

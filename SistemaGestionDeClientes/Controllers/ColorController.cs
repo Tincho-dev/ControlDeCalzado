@@ -10,7 +10,7 @@ namespace ControlDeCalzado.Controllers
 {
     public class ColorController : Controller
     {
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         // GET: Color
         public ActionResult Index()
         {
@@ -34,6 +34,7 @@ namespace ControlDeCalzado.Controllers
         }
 
         // POST: Color/Create
+
         [HttpPost]
         public ActionResult Create(Color color)
         {
@@ -46,7 +47,7 @@ namespace ControlDeCalzado.Controllers
             }
             return View(color);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Color/Edit/5
         public ActionResult Edit(string id)
         {
@@ -73,7 +74,7 @@ namespace ControlDeCalzado.Controllers
                 throw new Exception(e.Message);
             }
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Color/Delete/5
         public ActionResult Delete(string id)
         {

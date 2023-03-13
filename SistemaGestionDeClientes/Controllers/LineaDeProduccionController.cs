@@ -47,6 +47,7 @@ namespace ControlDeCalzado.Controllers
             return View(LineaDeProduccion);
         }
 
+        [Authorize(Roles = "Admin, SuperLinea")]
         // GET: LineaDeProduccion/Edit/5
         public ActionResult Edit(int id)
         {
@@ -73,6 +74,7 @@ namespace ControlDeCalzado.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin, SuperLinea")]
         // GET: LineaDeProduccion/Delete/5
         public ActionResult Delete(int id)
         {

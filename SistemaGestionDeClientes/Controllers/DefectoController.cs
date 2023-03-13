@@ -56,6 +56,7 @@ namespace ControlDeCalzado.Controllers
             return View(Defecto);
         }
 
+        [Authorize(Roles = "Admin, SuperLinea")]
         // GET: Defecto/Edit/5
         public ActionResult Edit(int id)
         {
@@ -90,6 +91,7 @@ namespace ControlDeCalzado.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin, SuperLinea")]
         // GET: Defecto/Delete/5
         public ActionResult Delete(int id)
         {
