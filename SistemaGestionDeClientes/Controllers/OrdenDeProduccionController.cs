@@ -120,22 +120,8 @@ namespace ControlDeCalzado.Controllers
         }
         #endregion
 
-        [HttpPost]
-        public JsonResult ActualizarCantidad(string numeroDeOrden, int cantidad)
-        {
-            //var op = OrdenDeProduccionService.Get(numeroDeOrden);
-            int idHorarioDeControl = OrdenDeProduccionService.HorarioActual(numeroDeOrden);
-
-            OrdenDeProduccionService.RegistrarIncidencia(cantidad, idHorarioDeControl);
-            //guardar valor en base de datos
-            int nuevaCantidad = OrdenDeProduccionService.TotalIncidenciasPrimera(idHorarioDeControl);
-            OrdenDeProduccionService.UpdateCantidadDeParesDePrimera(numeroDeOrden, nuevaCantidad);
-
-            return Json(nuevaCantidad);
-        }
         public ActionResult IniciarInspeccion(string id)
         {
-            ViewBag.cantidadReprocesoIzq = 0;
             OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
             OrdenDeProduccionService.AgregarJornada(id);
             OrdenDeProduccionService.AgregarHorarioDeControl(id);
@@ -146,6 +132,7 @@ namespace ControlDeCalzado.Controllers
             ViewBag.DefectosR = DefectoService.GetAll().Where(d => d.TipoDefecto == Common.TipoDefecto.Reproceso);
             ViewBag.DefectosO = DefectoService.GetAll().Where(d => d.TipoDefecto == Common.TipoDefecto.Observado);
             ViewBag.horaActual = DateTime.Now.TimeOfDay;
+            ViewBag.IdHOrarioDeControl = OrdenDeProduccionService.HorarioActual(id);
 
             return View("Inspeccionar", op);
         }
@@ -161,39 +148,43 @@ namespace ControlDeCalzado.Controllers
             ViewBag.DefectosR = DefectoService.GetAll().Where(d => d.TipoDefecto == Common.TipoDefecto.Reproceso);
             ViewBag.DefectosO = DefectoService.GetAll().Where(d => d.TipoDefecto == Common.TipoDefecto.Observado);
             ViewBag.horaActual = DateTime.Now.TimeOfDay;
+            ViewBag.IdHorarioDeControl = OrdenDeProduccionService.HorarioActual(id);
 
             return View("Inspeccionar", op);
         }
-        public ActionResult ChangeUserToOP(string numero, string user)
+
+        //public ActionResult ChangeUserToOP(string numero, string user)
+        //{
+        //    var Op = OrdenDeProduccionService.GetOP(user);
+
+        //    if (Op != null)
+        //    {
+        //        throw new ApplicationException("El Usuario ya tiene una Op asociada");
+        //    }
+
+        //    OrdenDeProduccionService.ChangeUserToOp(numero, user);
+        //    return RedirectToAction("Index");
+        //}
+
+        #region Incidencias
+        [HttpPost]
+        public JsonResult ActualizarCantidad(int idHorarioDeControl, int cantidad)
         {
-            var Op = OrdenDeProduccionService.GetOP(user);
+            OrdenDeProduccionService.RegistrarIncidencia(cantidad, idHorarioDeControl);
+            //guardar valor en base de datos
+            int nuevaCantidad = OrdenDeProduccionService.TotalIncidenciasPrimera(idHorarioDeControl);
+            //OrdenDeProduccionService.UpdateCantidadDeParesDePrimera(numeroDeOrden, nuevaCantidad);
 
-            if (Op != null)
-            {
-                throw new ApplicationException("El Usuario ya tiene una Op asociada");
-            }
-
-            OrdenDeProduccionService.ChangeUserToOp(numero, user);
-            return RedirectToAction("Index");
+            return Json(nuevaCantidad);
         }
         [HttpPost]
-        public JsonResult RegistrarDefecto(string NumeroOp, int cantidad, int idDefecto, Pie pie, TipoDefecto tipoDefecto)
+        public JsonResult RegistrarDefecto(int idHorarioDeControl, int cantidad, int idDefecto, Pie pie, TipoDefecto tipoDefecto)
         {
-            int idHorarioDeControl = OrdenDeProduccionService.HorarioActual(NumeroOp);
             OrdenDeProduccionService.RegistrarIncidencia( cantidad,  idDefecto,  pie,  idHorarioDeControl);
             int totalInicidencias = OrdenDeProduccionService.TotalIncidenciasDefectoPorPie(idHorarioDeControl, pie, tipoDefecto);
 
             return Json(totalInicidencias);
         }
-        public JsonResult ActualizarCantidadDefectosReprocesoIzq(string numeroDeOrden, int cantidad)
-        {
-            int cantidadReprocesoIzq = (int)Session["cantidadReprocesoIzq"];
-
-            int nuevaCantidad = cantidadReprocesoIzq + cantidad;
-
-            Session["cantidadReprocesoIzq"] = nuevaCantidad;
-
-            return Json(nuevaCantidad, JsonRequestBehavior.AllowGet);
-        }
+        #endregion
     }
 }

@@ -213,6 +213,7 @@ namespace Services
             using (var db = new ApplicationDbContext())
             {
                 db.Incidencias.Add(incidencia);
+                db.SaveChanges();
             }
         }
 
@@ -227,16 +228,17 @@ namespace Services
             }
             return result;
         }
+
         public static int TotalIncidenciasDefectoPorPie(int idHorarioDeControl, Pie pie, TipoDefecto tipoDefecto)
         {
             var result = 0;
             using (var db = new ApplicationDbContext())
             {
                 result = (from hdc in db.HorariosDeControl.Where(h => h.IdHorarioDeControl == idHorarioDeControl)
-                          from i in db.Incidencias.Where(i => i.IdHorarioDeControl == hdc.IdHorarioDeControl && i.Pie == pie)
-                          from d in db.Defectos.Where(d => d.IdDefecto == i.IdDefecto && d.TipoDefecto == tipoDefecto)
-                          select d
-                          ).Count();
+                          from d in db.Defectos.Where(d => d.TipoDefecto == tipoDefecto)
+                          from i in db.Incidencias.Where(i => i.IdHorarioDeControl == hdc.IdHorarioDeControl && i.Pie == pie && i.IdDefecto == d.IdDefecto)
+                          select i
+                          ).Sum(i=>i.CantidadIncidencia);
             }
             return result;
         }

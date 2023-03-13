@@ -2,195 +2,196 @@
 @using Services
 @using Model.Domain.ControlDeCalzado
 @using Common
+@using System.Text.RegularExpressions;
 
 @{
     ViewBag.Title = "Inspeccionar";
 }
 <meta charset="utf-8">
 <div class="row" style="padding-bottom:10px">
-	<div class="col">
-		<h2 style="text-align:left;">Inspeccionar</h2>
-	</div>  <!-- CIERRE COL 1 DE TITULO-->
-	<hr />
+    <div class="col">
+        <h2 style="text-align:left;">Inspeccionar</h2>
+    </div>  <!-- CIERRE COL 1 DE TITULO-->
+    <hr />
 </div>  <!-- CIERRE ROW 1 DE TITULO-->
 
 <div class="row" style="padding-bottom:30px">
 
-	<div class="col-md-4">
-		<ul>
-			<li>
-				<h4 style="text-align:left;">Fecha de Inicio: @Model.FechaDeInicio</h4>
-			</li>
-			<li>
-				<h4 style="text-align:left;">Línea: @Model.IdLinea</h4>
-			</li>
-		</ul>
-	</div> <!-- CIERRE COL 1 DE DATOS-->
+    <div class="col-md-4">
+        <ul>
+            <li>
+                <h4 style="text-align:left;">Fecha de Inicio: @Model.FechaDeInicio</h4>
+            </li>
+            <li>
+                <h4 style="text-align:left;">Línea: @Model.IdLinea</h4>
+            </li>
+        </ul>
+    </div> <!-- CIERRE COL 1 DE DATOS-->
 
-	<div class="col-md-4">
-		<ul>
-			<li>
-				<h4 style="text-align:left;">Sku: @Model.Sku</h4>
-			</li>
-			<li>
-				<h4 style="text-align:left;">Modelo: @ViewBag.Modelo.Denominacion</h4>
-			</li>
-		</ul>
-	</div> <!-- CIERRE COL 2 DE DATOS-->
+    <div class="col-md-4">
+        <ul>
+            <li>
+                <h4 style="text-align:left;">Sku: @Model.Sku</h4>
+            </li>
+            <li>
+                <h4 style="text-align:left;">Modelo: @ViewBag.Modelo.Denominacion</h4>
+            </li>
+        </ul>
+    </div> <!-- CIERRE COL 2 DE DATOS-->
 
-	<div class="col-md-4">
-		<ul>
-			<li>
-				<h4 style="text-align:left;">Codigo Color: @Model.CodigoColor</h4>
-			</li>
-			<li>
-				<h4 style="text-align:left;">Color: @ViewBag.Color.DescripcionColor</h4>
-			</li>
-		</ul>
-	</div>  <!-- CIERRE COL 3 DE DATOS-->
+    <div class="col-md-4">
+        <ul>
+            <li>
+                <h4 style="text-align:left;">Codigo Color: @Model.CodigoColor</h4>
+            </li>
+            <li>
+                <h4 style="text-align:left;">Color: @ViewBag.Color.DescripcionColor</h4>
+            </li>
+        </ul>
+    </div>  <!-- CIERRE COL 3 DE DATOS-->
 
 </div>  <!-- CIERRE ROW 1-->
 
 <div class="row">
-	<div class="col">
-		<p> Cambiar hora:</p>
-		@*@foreach()*@
-	</div> <!-- CIERRE COL 1 DE CAMBIAR HORA-->
+    <div class="col">
+        <p> Cambiar hora:</p>
+        @*@foreach()*@
+    </div> <!-- CIERRE COL 1 DE CAMBIAR HORA-->
 </div> <!-- CIERRE ROW 2-->
 
 <div class="row">
-	<div class="col-md-12">
+    <div class="col-md-12">
 
-		<table class="table" style="font-size: 28px; width: 75%; margin-left: 122px">
-			<thead>
-				<tr>
-					<th>
+        <table class="table" style="font-size: 28px; width: 75%; margin-left: 122px">
+            <thead>
+                <tr>
+                    <th>
 
-					</th>
-					<th>
-						Par de Primera
-					</th>
-					<th>
+                    </th>
+                    <th>
+                        Par de Primera
+                    </th>
+                    <th>
 
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<button style="border-radius: 15px" id="btnRestar">-</button>
-					</td>
-					<td>
-						<span id="lblcantidad">@Model.CantidadDePrimera</span>
-					</td>
-					<td>
-						<button style="border-radius: 15px" id="btnSumar">+</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div> <!-- CIERRE COL 1 DE TABLA DE PAR DE PRIMERA-->
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <button style="border-radius: 15px" id="btnRestar">-</button>
+                    </td>
+                    <td>
+                        <span id="lblcantidad">@Model.CantidadDePrimera</span>
+                    </td>
+                    <td>
+                        <button style="border-radius: 15px" id="btnSumar">+</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> <!-- CIERRE COL 1 DE TABLA DE PAR DE PRIMERA-->
 </div> <!-- CIERRE ROW 3-->
 
 
 <div class="row">
-	<div class="col-md-6">
+    <div class="col-md-6">
 
 
-		<table class="table">
-			<thead>
-				<tr>
-					<th>
-						Izquierdo
-					</th>
-					<th>
-						Observado
-					</th>
-					<th>
-						Derecho
-					</th>
-				</tr>
-			</thead>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Izquierdo
+                    </th>
+                    <th>
+                        Observado
+                    </th>
+                    <th>
+                        Derecho
+                    </th>
+                </tr>
+            </thead>
 
-			@foreach (var item in ViewBag.DefectosO)
+            @foreach (var item in ViewBag.DefectosO)
             {
-			<tr>
-				<td>
-					<p>
-						<button style="border-radius: 15px" id="btnRestarObservadoIzq">-</button>
-						<span id="cantidadObservadoIzq"></span>
-						<button style="border-radius: 15px" id="btnSumarObservadoIzq()">+</button>
-					</p>
-				</td>
-				<td>
-					@Html.Raw(item.DescripcionDefecto)
-				</td>
-				<td>
-					<p>
-						<button style="border-radius: 15px" id="btnRestarObservadoDer">-</button>
-						<span id="cantidadObservadoDer"></span>
-						<button style="border-radius: 15px" id="btnSumarObservadoDer">+</button>
-					</p>
-				</td>
-			</tr>
+                <tr>
+                    <td>
+                        <p>
+                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Izquierdo),@((int)TipoDefecto.Observado),-1)">-</button>
+                            <span id="@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador">func(@item.IdDefecto)</span>
+                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Izquierdo),@((int)TipoDefecto.Observado),1)">+</button>
+                        </p>
+                    </td>
+                    <td>
+                        @Html.Raw(item.DescripcionDefecto)
+                    </td>
+                    <td>
+                        <p>
+                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Derecho),@((int)TipoDefecto.Observado),-1)">-</button>
+                            <span id="@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador"></span>
+                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Derecho),@((int)TipoDefecto.Observado),1)">+</button>
+                        </p>
+                    </td>
+                </tr>
             }
 
-		</table>
-	</div> <!-- CIERRE COL 1 DE TABLA DE DEFECTO OBSERVADO-->
-	<div class="col-md-6">
-		<table class="table">
-			<tr>
-				<th>
-					Izquiero
-				</th>
-				<th>
-					Reproceso
-				</th>
-				<th>
-					Derecho
-				</th>
-			</tr>
+        </table>
+    </div> <!-- CIERRE COL 1 DE TABLA DE DEFECTO OBSERVADO-->
+    <div class="col-md-6">
+        <table class="table">
+            <tr>
+                <th>
+                    Izquiero
+                </th>
+                <th>
+                    Reproceso
+                </th>
+                <th>
+                    Derecho
+                </th>
+            </tr>
 
-			@foreach (var item in ViewBag.DefectosR)
+            @foreach (var item in ViewBag.DefectosR)
             {
-			<tr>
-				<td>
-					<p>
-						<button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@item.DescripcionDefecto', @((int)Pie.Izquierdo),@((int)TipoDefecto.Reproceso),-1)">-</button>
-						 @*<span id="@(item.DescripcionDefecto)Contador">@ViewBag.contadorReprocesoIzq</span>*@
-						<span id="@(item.DescripcionDefecto)Contador"></span>
-						<button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@item.DescripcionDefecto', @((int)Pie.Izquierdo),@((int)TipoDefecto.Reproceso),1)">+</button>
-					</p>
-				</td>
-				<td>
-					@Html.Raw(item.DescripcionDefecto)
-				</td>
-				<td>
-					<p>
-						<button style="border-radius: 15px" id="btnRestarReprocesoDer">-</button>
-						<span id="cantidadReprocesoDer"></span>
-						<button style="border-radius: 15px" id="btnSumarReprocesoDer">+</button>
-					</p>
-				</td>
-			</tr>
+                <tr>
+                    <td>
+                        <p>
+                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Izquierdo),@((int)TipoDefecto.Reproceso),-1)">-</button>
+                            <span id="@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador"></span>
+                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Izquierdo),@((int)TipoDefecto.Reproceso),1)">+</button>
+                        </p>
+                    </td>
+                    <td>
+                        @Html.Raw(item.DescripcionDefecto)
+                    </td>
+                    <td>
+                        <p>
+                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Derecho),@((int)TipoDefecto.Reproceso),-1)">-</button>
+                            <span id="@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador"></span>
+                            <button style="border-radius: 15px" onclick="btnActualizarDefecto(@item.IdDefecto,'@Regex.Replace(item.DescripcionDefecto, @"\s", "")Contador', @((int)Pie.Derecho),@((int)TipoDefecto.Reproceso),1)">+</button>
+                        </p>
+                    </td>
+                </tr>
             }
-		</table>
-	</div> <!-- CIERRE COL 2 DE TABLA DE DEFECTO DE REPROCESO-->
+        </table>
+    </div> <!-- CIERRE COL 2 DE TABLA DE DEFECTO DE REPROCESO-->
 </div> <!-- CIERRE DE ROW 4 DE TABLAS DE DEFECTOS-->
-
+<p id="${descripcionDefecto}Contador">2</p>
+<p id=""${descripcionDefecto}Contador"">3</p>
 <div>
-	<a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a Detalles</a>
-	@Html.ActionLink("Pausar OP", "Detalles", "OrdenDeProduccion", new { numero = Model.Numero }, new { @class = "btn" })
-	@Html.ActionLink("Terminar OP", "Detalles", "OrdenDeProduccion", new { numero = Model.Numero }, new { @class = "btn" })
+    <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a Detalles</a>
+    @Html.ActionLink("Pausar OP", "Detalles", "OrdenDeProduccion", new { numero = Model.Numero }, new { @class = "btn" })
+    @Html.ActionLink("Terminar OP", "Detalles", "OrdenDeProduccion", new { numero = Model.Numero }, new { @class = "btn" })
 </div>
 
 
 @section Scripts
 {
 
-	@Scripts.Render("~/bundles/jqueryval")
-	@*Contador Pares de Primera*@
-	<script>
+    @Scripts.Render("~/bundles/jqueryval")
+    @*Contador Pares de Primera*@
+    <script>
 		$(document).ready(function () {
 			$('#btnSumar').click(function () {
                 actualizarCantidad(1);
@@ -202,7 +203,6 @@
         });
 
         function actualizarCantidad(cantidad) {
-            var numeroDeOrden = "@Model.Numero";
             var cantidadActual = parseInt($('#lblcantidad').text());
             var nuevaCantidad = cantidadActual + cantidad;
 
@@ -214,23 +214,26 @@
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("ActualizarCantidad", "OrdenDeProduccion")",
-                data: { numeroDeOrden: numeroDeOrden, cantidad: cantidad },
+				data: {
+                    idHorarioDeControl: parseInt(@ViewBag.IdHorarioDeControl),
+					cantidad: cantidad
+				},
                 success: function (response) {
                     $('#lblcantidad').text(response);
                 }
             });
         }
 
-	</script>
+    </script>
 
 
-	<!--Registrar Defecto-->
-	<script>
+    <!--Registrar Defecto-->
+    <script>
 
-        function btnActualizarDefecto(IdDefecto,descripcionDefecto,pie,tipoDefecto,cantidad) {
-            var numeroDeOrden = "@Model.Numero";
+        function btnActualizarDefecto(IdDefecto,id,pie,tipoDefecto,cantidad) {
 			//var cantidadActual = parseInt($('#lblcantidad').text());
-            var cantidadActual = parseInt($(`#${descripcionDefecto}Contador`).text());
+            //var id = `${descripcionDefecto}Contador`;
+            var cantidadActual = parseInt($(`#${id}`).text());
             var nuevaCantidad = cantidadActual + cantidad;
 
             if (nuevaCantidad < 0) {
@@ -241,50 +244,20 @@
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("RegistrarDefecto", "OrdenDeProduccion")",
-                data: { numeroDeOrden: numeroDeOrden, 
+                data: {
+						idHorarioDeControl: parseInt(@ViewBag.IdHorarioDeControl),
 						cantidad: cantidad,
 						IdDefecto:IdDefecto,
 						pie:pie,
 						tipoDefecto:tipoDefecto},
-                success: function (response) {
-                    $(`#${descripcionDefecto}Contador`).text(response);
+				success: function (response) {
+					console.log("Defecto registreado");
+					console.log(cantidadActual);
+					console.log(id);
+                    $(`#${id}`).text(response);
                 }
             });
         }
 
-	</script>
-
-	@*Contador defectos de reproceso pie Izquierdo*@
-	<script>
-
-		$(document).ready(function () {
-            $('#btnSumarReprocesoIzq').click(function () {
-                ActualizarCantidadDefectos(1);
-			});
-
-            $('#btnRestarReprocesoIzq').click(function () {
-                ActualizarCantidadDefectos(-1);
-			});
-		});
-
-		function ActualizarCantidadDefectos(cantidad) {
-			var numeroDeOrden = "@Model.Numero"
-			var cantidadActual = parseInt($('#cantidadReprocesoIzq').text());
-			var nuevaCantidad = cantidadActual + cantidad;
-
-			if (nuevaCantidad < 0) {
-				alert('No se permiten numeros negativos');
-				return;
-			}
-
-			$.ajax({
-				type: "GET",
-				url: "@Url.Action("ActualizarCantidadDefectosReprocesoIzq", "OrdenDeProduccion")",
-				data: { numeroDeOrden: numeroDeOrden, cantidad: cantidad },
-				success: function (response) {
-                    $('#cantidadReprocesoIzq').text(response);
-				}
-			});
-        }
-	</script>
+    </script>
 }
