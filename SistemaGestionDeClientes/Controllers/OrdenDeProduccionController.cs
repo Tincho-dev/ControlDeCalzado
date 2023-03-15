@@ -166,7 +166,7 @@ namespace ControlDeCalzado.Controllers
         {
             OrdenDeProduccionService.RegistrarIncidencia(cantidad, idHorarioDeControl);
             //guardar valor en base de datos
-            int nuevaCantidad = OrdenDeProduccionService.TotalIncidenciasPrimera(idHorarioDeControl);
+            int nuevaCantidad = OrdenDeProduccionService.TotalIncidenciasPrimera(numeroDeOrden);
             OrdenDeProduccionService.UpdateCantidadDeParesDePrimera(numeroDeOrden, nuevaCantidad);
 
             return Json(nuevaCantidad);

@@ -219,7 +219,21 @@ namespace Services
         }
         
         #region Consultas
-        public static int TotalIncidenciasPrimera(int idHorarioDeControl)
+        public static int TotalIncidenciasPrimera(string  numero)
+        {
+            var result = 0;
+            using (var db = new ApplicationDbContext())
+            {
+                result = (
+                            from op in db.OrdenesDeProduccion.Where(o=>o.Numero==numero)
+                            from j in db.JornadasLaborales.Where(j => j.Numero == op.Numero)
+                            from hdc in db.HorariosDeControl.Where(h =>h.IdJornada == j.IdJornada)
+                            from i in db.Incidencias.Where(i=>i.IdHorarioDeControl == hdc.IdHorarioDeControl && i.Tipo ==  TipoIncidencia.Primera)
+                            select i.CantidadIncidencia).Sum();
+            }
+            return result;
+        }
+        public static int TotalIncidenciasPrimeraEnHorarioDeControl(int idHorarioDeControl)
         {
             var result = 0;
             using (var db = new ApplicationDbContext())
