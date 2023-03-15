@@ -44,13 +44,23 @@ namespace ControlDeCalzado.Controllers
         [HttpPost]
         public ActionResult Create(OrdenDeProduccion OrdenDeProduccion)
         {
-            OrdenDeProduccion.UserId = Common.CurrentUser.Get.UserId;
-            if (ModelState.IsValid)
+            try
             {
-                OrdenDeProduccionService.Create(OrdenDeProduccion);
+                OrdenDeProduccion.UserId = Common.CurrentUser.Get.UserId;
+                if (ModelState.IsValid)
+                {
+                    OrdenDeProduccionService.Create(OrdenDeProduccion);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
             }
+            catch (ApplicationException e)
+            {
+                //ModelState.AddModelError();//googlear 
+            }
+            ViewBag.CodigoColor = new SelectList(ColorService.GetAll(), "CodigoColor", "DescripcionColor");
+            ViewBag.Sku = new SelectList(ModeloService.GetAll(), "Sku", "Denominacion");
+            ViewBag.IdLinea = new SelectList(LineaDeProduccionService.GetAllAviable(), "IdLinea", "NumeroLinea");
             return View(OrdenDeProduccion);
         }
 
@@ -136,6 +146,9 @@ namespace ControlDeCalzado.Controllers
             ViewBag.DefectosO = DefectoService.GetAll().Where(d => d.TipoDefecto == Common.TipoDefecto.Observado);
             ViewBag.horaActual = DateTime.Now.TimeOfDay;
             ViewBag.IdHOrarioDeControl = OrdenDeProduccionService.HorarioActual(id);
+
+            //long poolling, contador para refrescar contador de alerta js y jquery para consultar y mostrar
+            //boton de ver semadoro en inicio o en la vista de inspeccionar
 
             return View("Inspeccionar", op);
         }

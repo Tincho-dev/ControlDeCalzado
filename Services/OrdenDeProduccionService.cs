@@ -36,56 +36,53 @@ namespace Services
         }
         public static void Create(OrdenDeProduccion model)
         {
+            //organizar codigo y condicionales
+
             //validar turno a la hora de crear
             bool estaEnTurno = TurnoService.EstaEnTurno();
             var lineaOcupada = LineaOcupada(model.IdLinea);
-            if (estaEnTurno == true)
-            {
-                using (var db = new ApplicationDbContext())
-                {
-                    var OrdenDeProduccion = new OrdenDeProduccion();
-                    if (db.OrdenesDeProduccion.Any())
-                    {
-                        var NumeroOp = db.OrdenesDeProduccion.Where(x => x.Numero == model.Numero).DefaultIfEmpty().Single();
-                        if (NumeroOp == null)
-                        {
-                            OrdenDeProduccion.Numero = model.Numero;
-                        }
-                        else
-                        {
-                            throw new ApplicationException("Ya existe una OP con este Numero");
-                        }
-                    }
-                    else OrdenDeProduccion.Numero = model.Numero;
-                    if (lineaOcupada == null)
-                    {
-                        OrdenDeProduccion.IdLinea = model.IdLinea;
-                    }
-                    else
-                    {
-                        throw new ApplicationException("Esta linea ya esta ocupada en una OP activa");
-                    }
-
-                    OrdenDeProduccion.Sku = model.Sku;
-                    OrdenDeProduccion.CodigoColor = model.CodigoColor;
-                    OrdenDeProduccion.UserId = model.UserId;
-                    //validar op
-                    OrdenDeProduccion.FechaDeInicio = model.FechaDeInicio;
-                    OrdenDeProduccion.Estado = EstadoOp.Pausada;
-                    //OrdenDeProduccion.FechaDeFin = model.FechaDeInicio;
-                    //OrdenDeProduccion.CantidadDePrimera = model.CantidadDePrimera;
-                    //OrdenDeProduccion.CantidadPorHermanado = model.CantidadPorHermanado;
-                    //OrdenDeProduccion.Jornadas = model.Jornadas;
-
-                    db.OrdenesDeProduccion.Add(OrdenDeProduccion);
-                    db.SaveChanges();
-                }
-            }
-            else
+            if (!estaEnTurno)
             {
                 //o no devolver nada y validar en el controller
                 throw new ApplicationException("No existe turno");
             }
+            using (var db = new ApplicationDbContext())
+            {
+                var OrdenDeProduccion = new OrdenDeProduccion();
+                    bool NumeroOp = db.OrdenesDeProduccion.Any(x => x.Numero == model.Numero);
+                    if (NumeroOp)
+                    {
+                        OrdenDeProduccion.Numero = model.Numero;
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Ya existe una OP con este Numero");
+                    }
+                OrdenDeProduccion.Numero = model.Numero;
+                if (lineaOcupada == null)
+                {
+                    OrdenDeProduccion.IdLinea = model.IdLinea;
+                }
+                else
+                {
+                    throw new ApplicationException("Esta linea ya esta ocupada en una OP activa");
+                }
+
+                OrdenDeProduccion.Sku = model.Sku;
+                OrdenDeProduccion.CodigoColor = model.CodigoColor;
+                OrdenDeProduccion.UserId = model.UserId;
+                //validar op
+                OrdenDeProduccion.FechaDeInicio = model.FechaDeInicio;
+                OrdenDeProduccion.Estado = EstadoOp.Pausada;
+                //OrdenDeProduccion.FechaDeFin = model.FechaDeInicio;
+                //OrdenDeProduccion.CantidadDePrimera = model.CantidadDePrimera;
+                //OrdenDeProduccion.CantidadPorHermanado = model.CantidadPorHermanado;
+                //OrdenDeProduccion.Jornadas = model.Jornadas;
+
+                db.OrdenesDeProduccion.Add(OrdenDeProduccion);
+                db.SaveChanges();
+            }
+
         }
         public static void Update(OrdenDeProduccion model)
         {
@@ -167,13 +164,13 @@ namespace Services
                     HoraFin = FinJornada,
                     IdJornada = db.JornadasLaborales
                     .Where(j => j.FechaFinJornada == FinJornada && j.Numero == Numero)
-                    .OrderByDescending(j=>j.FechaInicioJornada).First().IdJornada,
+                    .OrderByDescending(j => j.FechaInicioJornada).First().IdJornada,
                 };
                 db.HorariosDeControl.Add(horarioDeControl);
                 db.SaveChanges();
             }
         }
-        public static void RegistrarIncidencia(int cantidad,int idHorarioDeControl)
+        public static void RegistrarIncidencia(int cantidad, int idHorarioDeControl)
         {
             Incidencia incidencia = new Incidencia()
             {
@@ -196,7 +193,7 @@ namespace Services
             {
                 return (from j in db.JornadasLaborales.Where(j => j.Numero == numeroOp).OrderByDescending(j => j.FechaInicioJornada)
                         from hdc in db.HorariosDeControl.Where(hd => hd.IdJornada == j.IdJornada).OrderBy(h => h.HoraInicio)
-                        select hdc).OrderByDescending(h=>h.HoraInicio).FirstOrDefault().IdHorarioDeControl;
+                        select hdc).OrderByDescending(h => h.HoraInicio).FirstOrDefault().IdHorarioDeControl;
             }
         }
         public static void RegistrarIncidencia(int cantidad, int idDefecto, Pie pie, int idHorarioDeControl)
@@ -217,18 +214,18 @@ namespace Services
                 db.SaveChanges();
             }
         }
-        
+
         #region Consultas
-        public static int TotalIncidenciasPrimera(string  numero)
+        public static int TotalIncidenciasPrimera(string numero)
         {
             var result = 0;
             using (var db = new ApplicationDbContext())
             {
                 result = (
-                            from op in db.OrdenesDeProduccion.Where(o=>o.Numero==numero)
+                            from op in db.OrdenesDeProduccion.Where(o => o.Numero == numero)
                             from j in db.JornadasLaborales.Where(j => j.Numero == op.Numero)
-                            from hdc in db.HorariosDeControl.Where(h =>h.IdJornada == j.IdJornada)
-                            from i in db.Incidencias.Where(i=>i.IdHorarioDeControl == hdc.IdHorarioDeControl && i.Tipo ==  TipoIncidencia.Primera)
+                            from hdc in db.HorariosDeControl.Where(h => h.IdJornada == j.IdJornada)
+                            from i in db.Incidencias.Where(i => i.IdHorarioDeControl == hdc.IdHorarioDeControl && i.Tipo == TipoIncidencia.Primera)
                             select i.CantidadIncidencia).Sum();
             }
             return result;
@@ -239,7 +236,7 @@ namespace Services
             using (var db = new ApplicationDbContext())
             {
                 var horario = db.HorariosDeControl.Where(h => h.IdHorarioDeControl == idHorarioDeControl).Include(h => h.Incidencias).Single();
-                result = horario.Incidencias.Where(i => i.Tipo == TipoIncidencia.Primera).Sum(i=>i.CantidadIncidencia);
+                result = horario.Incidencias.Where(i => i.Tipo == TipoIncidencia.Primera).Sum(i => i.CantidadIncidencia);
             }
             return result;
         }
@@ -251,12 +248,12 @@ namespace Services
                 result = (
                           from d in db.Defectos.Where(d => d.TipoDefecto == tipoDefecto)
                           from i in db.Incidencias
-                          .Where(i => i.IdHorarioDeControl == idHorarioDeControl && 
-                          i.Pie == pie && 
+                          .Where(i => i.IdHorarioDeControl == idHorarioDeControl &&
+                          i.Pie == pie &&
                           i.IdDefecto == d.IdDefecto &&
                           i.IdDefecto == idDefecto)
                           select i
-                          ).Sum(i=>i.CantidadIncidencia);
+                          ).Sum(i => i.CantidadIncidencia);
             }
             return result;
         }
@@ -382,7 +379,7 @@ namespace Services
                 db.SaveChanges();
             }
         }
-        
+
         public static void CambiarEstadoOrdenDeProduccion(string Numero, EstadoOp estadoOp)
         {
             using (var db = new ApplicationDbContext())
@@ -403,7 +400,7 @@ namespace Services
 
         public static void TerminarOp(string Numero)
         {
-            using(var db = new ApplicationDbContext())
+            using (var db = new ApplicationDbContext())
             {
                 var original = db.OrdenesDeProduccion.Where(x => x.Numero == Numero).Single();
 
