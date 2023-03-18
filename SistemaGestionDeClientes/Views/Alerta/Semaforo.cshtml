@@ -1,5 +1,4 @@
 ﻿@using Model.Domain.ControlDeCalzado
-@Model
 
 @{
     ViewBag.Title = "Semaforo";
@@ -10,16 +9,16 @@
 
 <div>
     <h2>
-        Cantidad Actual: @Model
+        Cantidad Actual: <span id="cantidad">@Model</span>
     </h2>
 </div>
 
 <body>
     <div class="container">
         <div class="semaforo">
-            <span class="luces-circulo  @((Alerta.CalcularEstadoSemaforo(Model) == "red") ? "red":"")" color="red"></span>
-            <span class="luces-circulo @((Alerta.CalcularEstadoSemaforo(Model) == "yellow") ? "yellow":"")" color="yellow"></span>
-            <span class="luces-circulo  @((Alerta.CalcularEstadoSemaforo(Model) == "green") ? "green":"")" color="green"></span>
+            <span id="rojo" class="luces-circulo "></span>
+            <span id="amarillo" class="luces-circulo" ></span>
+            <span id="verde" class="luces-circulo"></span>
         </div>
     </div>
 </body>
@@ -63,15 +62,15 @@
         position: relative;
     }
 
-    .luces-circulo::after {
-          content: '';
-          position: absolute;
-          width: 75px;
-          height: 75px;
-          border-radius: 50%;
-          border-right: 4px solid rgb(255, 255, 255, 0.6);
-          top: 5%;
-     }
+        .luces-circulo::after {
+            content: '';
+            position: absolute;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border-right: 4px solid rgb(255, 255, 255, 0.6);
+            top: 5%;
+        }
 
     .red {
         background-color: red;
@@ -88,3 +87,42 @@
         box-shadow: 0 0 10px 1px #2ecc71;
     }
 </style>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        function updateSemaphor() {
+            $.ajax({
+                url: '@Url.Action("GetValue", "Alerta")',
+                type: 'GET',
+                dataType: 'json',
+                success: function (result) {
+
+                    if (result.contador == 0 && result.limiteInferior == 0 && result.limiteSuperior == 0) {
+                        $('#verde').removeClass('green');
+                        $('#amarillo').removeClass('yellow');
+                        $('#rojo').removeClass('red');
+                    } else if (result.contador > 0) {
+                        $('#amarillo').removeClass('yellow');
+                        $('#rojo').removeClass('red');
+                        $('#verde').addClass('green');
+                    } else if (result.contador >= result.limiteInferior) {
+                        $('#rojo').removeClass('red');
+                        $('#verde').removeClass('green');
+                        $('#amarillo').addClass('yellow');
+                    } else {
+                        $('#amarillo').removeClass('yellow');
+                        $('#verde').removeClass('green');
+                        $('#rojo').addClass('red');
+                    }
+                }
+            });
+        }
+
+        $(function () {
+            updateSemaphor();
+            setInterval(updateSemaphor, 5000);
+        });
+    </script>
+}

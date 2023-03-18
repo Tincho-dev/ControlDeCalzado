@@ -10,10 +10,11 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Common;
 
 namespace ControlDeCalzado.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [CustomAuthorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly UserService userService = new UserService();

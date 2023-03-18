@@ -7,7 +7,12 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/jquery-ui.css" rel="stylesheet"/>
+    <link href="~/Content/jquery-ui.structure.css" rel="stylesheet"/>
+    <link href="~/Content/jquery-ui.theme.css" rel="stylesheet"/>
+    <link href="~/Scripts/Deslogueo.js"/>
 </head>
+
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -22,11 +27,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    @if (Request.IsAuthenticated)
-                        {
-                            <li>@Html.ActionLink("Usuarios", "Index", "User")</li>
-                        }
-                
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Usuarios", "Index", "User")</li>
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -44,5 +49,15 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/ajax")
     @RenderSection("scripts", required: false)
+<script>
+$(window).on('beforeunload', function () {
+    $.ajax({
+        type: 'POST',
+        url: '@Url.Action("LogOff", "Account")',
+        async: false
+    });
+});
+</script>
 </body>
+
 </html>

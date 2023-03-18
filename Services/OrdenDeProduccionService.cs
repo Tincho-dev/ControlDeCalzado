@@ -1,4 +1,5 @@
 ﻿using Common;
+using Model.Custom;
 using Model.Domain.ControlDeCalzado;
 using Persistanse;
 using System;
@@ -11,17 +12,66 @@ namespace Services
     public class OrdenDeProduccionService
     {
         #region CRUD
-        public static IEnumerable<OrdenDeProduccion> GetAll()
+        public static IEnumerable<OrdenDeProduccionGrid> GetAll()
         {
-            var result = new List<OrdenDeProduccion>();
+            var result = new List<OrdenDeProduccionGrid>();
 
             using (var db = new ApplicationDbContext())
             {
                 result = (
-                          from col in db.OrdenesDeProduccion
-                          select col
-                          ).ToList();
+                          from op in db.OrdenesDeProduccion
+                          from col in db.Colores.Where(x => x.CodigoColor == op.CodigoColor).DefaultIfEmpty()
+                          from mo in db.Modelos.Where(x => x.Sku == op.Sku).DefaultIfEmpty()
+                          from li in db.LineasDeProduccion.Where(x => x.IdLinea == op.IdLinea).DefaultIfEmpty()
+                          from us in db.ApplicationUsers.Where(x => x.Id == op.UserId).DefaultIfEmpty()
+                          select new OrdenDeProduccionGrid
+                          {
+                              Numero = op.Numero,
+                              Estado = op.Estado,
+                              FechaDeInicio = op.FechaDeInicio,
+                              FechaDeFin = op.FechaDeFin,
+                              CantidadDePrimera = op.CantidadDePrimera,
+                              Color = col.DescripcionColor,
+                              Sku = op.Sku,
+                              Modelo = mo.Denominacion,
+                              Linea = li.NumeroLinea,
+                              UserId = op.UserId,
+                              Supervisor = us.Name + " " + us.LastName
+                          }).OrderBy(x => x.FechaDeInicio).ToList();
+                          
             }
+            return result;
+        }
+
+        public static OrdenDeProduccionGrid GetDetails(string id)
+        {
+            var result = new OrdenDeProduccionGrid();
+
+            using (var db = new ApplicationDbContext())
+            {
+                result = (
+                          from op in db.OrdenesDeProduccion.Where(x => x.Numero == id)
+                          from col in db.Colores.Where(x => x.CodigoColor == op.CodigoColor).DefaultIfEmpty()
+                          from mo in db.Modelos.Where(x => x.Sku == op.Sku).DefaultIfEmpty()
+                          from li in db.LineasDeProduccion.Where(x => x.IdLinea == op.IdLinea).DefaultIfEmpty()
+                          from us in db.ApplicationUsers.Where(x => x.Id == op.UserId).DefaultIfEmpty()
+                          select new OrdenDeProduccionGrid
+                          {
+                              Numero = op.Numero,
+                              Estado = op.Estado,
+                              FechaDeInicio = op.FechaDeInicio,
+                              FechaDeFin = op.FechaDeFin,
+                              CantidadDePrimera = op.CantidadDePrimera,
+                              Color = col.DescripcionColor,
+                              Sku = op.Sku,
+                              Modelo = mo.Denominacion,
+                              Linea = li.NumeroLinea,
+                              UserId = op.UserId,
+                              Supervisor = us.Name + " " + us.LastName
+                          }).Single();
+
+            };
+
             return result;
         }
         public static OrdenDeProduccion Get(string id)
@@ -49,8 +99,8 @@ namespace Services
             using (var db = new ApplicationDbContext())
             {
                 var OrdenDeProduccion = new OrdenDeProduccion();
-                    bool NumeroOp = db.OrdenesDeProduccion.Any(x => x.Numero == model.Numero);
-                    if (NumeroOp)
+                var NumeroOp = db.OrdenesDeProduccion.Where(x => x.Numero == model.Numero).FirstOrDefault();
+                    if (NumeroOp == null)
                     {
                         OrdenDeProduccion.Numero = model.Numero;
                     }
@@ -58,7 +108,6 @@ namespace Services
                     {
                         throw new ApplicationException("Ya existe una OP con este Numero");
                     }
-                OrdenDeProduccion.Numero = model.Numero;
                 if (lineaOcupada == null)
                 {
                     OrdenDeProduccion.IdLinea = model.IdLinea;
@@ -70,13 +119,9 @@ namespace Services
 
                 OrdenDeProduccion.Sku = model.Sku;
                 OrdenDeProduccion.CodigoColor = model.CodigoColor;
-                OrdenDeProduccion.UserId = model.UserId;
                 //validar op
                 OrdenDeProduccion.FechaDeInicio = model.FechaDeInicio;
                 OrdenDeProduccion.Estado = EstadoOp.Pausada;
-                //OrdenDeProduccion.FechaDeFin = model.FechaDeInicio;
-                //OrdenDeProduccion.CantidadDePrimera = model.CantidadDePrimera;
-                //OrdenDeProduccion.CantidadPorHermanado = model.CantidadPorHermanado;
                 //OrdenDeProduccion.Jornadas = model.Jornadas;
 
                 db.OrdenesDeProduccion.Add(OrdenDeProduccion);
@@ -113,12 +158,14 @@ namespace Services
                     db.SaveChanges();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new ApplicationException("No se puede eliminar la Orden de Produccion" + id);
             }
         }
         #endregion
+
+        #region Jornada y Horario de Control
 
         public static bool JornadaActiva(string numero)
         {
@@ -170,6 +217,48 @@ namespace Services
                 db.SaveChanges();
             }
         }
+
+        public static int HorarioActual(string numeroOp)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                return (from j in db.JornadasLaborales.Where(j => j.Numero == numeroOp).OrderByDescending(j => j.FechaInicioJornada)
+                        from hdc in db.HorariosDeControl.Where(hd => hd.IdJornada == j.IdJornada).OrderBy(h => h.HoraInicio)
+                        select hdc).OrderByDescending(h => h.HoraInicio).FirstOrDefault().IdHorarioDeControl;
+            }
+        }
+
+        public static HorarioDeControl ObtenerHorarioDeControl(string NumeroDeOrden)
+        {
+            HorarioDeControl horarioDeControl = null;
+            using (var db = new ApplicationDbContext())
+            {
+                horarioDeControl = (
+                                    from j in db.JornadasLaborales.Where(j => j.Numero == NumeroDeOrden)
+                                    from hdc in db.HorariosDeControl.Where(h => h.IdJornada == j.IdJornada)
+                                    select hdc
+                                    ).OrderByDescending(h => h.HoraInicio).First();
+            }
+            return horarioDeControl;
+        }
+
+        public static void GetJornadaActual(string id)
+        {
+            OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
+
+            using (var db = new ApplicationDbContext())
+            {
+                Modelo modelo = db.Modelos.Find(op.Sku);
+                JornadaLaboral jornada = db.JornadasLaborales
+                    .Where(j => j.Numero == id)
+                    .OrderByDescending(j => j.FechaFinJornada)
+                    .FirstOrDefault();
+            }
+        }
+
+        #endregion
+
+        #region Consultas
         public static void RegistrarIncidencia(int cantidad, int idHorarioDeControl)
         {
             Incidencia incidencia = new Incidencia()
@@ -187,15 +276,7 @@ namespace Services
                 db.SaveChanges();
             }
         }
-        public static int HorarioActual(string numeroOp)
-        {
-            using (var db = new ApplicationDbContext())
-            {
-                return (from j in db.JornadasLaborales.Where(j => j.Numero == numeroOp).OrderByDescending(j => j.FechaInicioJornada)
-                        from hdc in db.HorariosDeControl.Where(hd => hd.IdJornada == j.IdJornada).OrderBy(h => h.HoraInicio)
-                        select hdc).OrderByDescending(h => h.HoraInicio).FirstOrDefault().IdHorarioDeControl;
-            }
-        }
+
         public static void RegistrarIncidencia(int cantidad, int idDefecto, Pie pie, int idHorarioDeControl)
         {
             Incidencia incidencia = new Incidencia()
@@ -215,7 +296,6 @@ namespace Services
             }
         }
 
-        #region Consultas
         public static int TotalIncidenciasPrimera(string numero)
         {
             var result = 0;
@@ -230,6 +310,7 @@ namespace Services
             }
             return result;
         }
+
         public static int TotalIncidenciasPrimeraEnHorarioDeControl(int idHorarioDeControl)
         {
             var result = 0;
@@ -240,6 +321,7 @@ namespace Services
             }
             return result;
         }
+
         public static int TotalIncidenciasDefectoPorPie(int idHorarioDeControl, Pie pie, TipoDefecto tipoDefecto, int idDefecto)
         {
             var result = 0;
@@ -257,20 +339,7 @@ namespace Services
             }
             return result;
         }
-        #endregion
-        public static void GetJornadaActual(string id)
-        {
-            OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
 
-            using (var db = new ApplicationDbContext())
-            {
-                Modelo modelo = db.Modelos.Find(op.Sku);
-                JornadaLaboral jornada = db.JornadasLaborales
-                    .Where(j => j.Numero == id)
-                    .OrderByDescending(j => j.FechaFinJornada)
-                    .FirstOrDefault();
-            }
-        }
         public static void CargarAlertas(string id)
         {
             OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
@@ -300,16 +369,43 @@ namespace Services
                 db.SaveChanges();
             }
         }
+
+        public static OrdenDeProduccion LineaOcupada(int linea)
+        {
+            var result = new OrdenDeProduccion();
+
+            using (var ctx = new ApplicationDbContext())
+            {
+                result = ctx.OrdenesDeProduccion.Where(x => x.IdLinea == linea && (x.Estado == Common.EstadoOp.Iniciada || x.Estado == Common.EstadoOp.Pausada)).DefaultIfEmpty().Single();
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region Asignar y Desvincular Op
         public static OrdenDeProduccion GetOP(string user)
         {
             var result = new OrdenDeProduccion();
 
             using (var ctx = new ApplicationDbContext())
             {
-                result = ctx.OrdenesDeProduccion.Where(x => x.UserId == user).FirstOrDefault();
+                result = ctx.OrdenesDeProduccion.Where(x => x.UserId == user && x.Estado != EstadoOp.Finalizada).FirstOrDefault();
             }
             return result;
         }
+
+        public static IEnumerable<OrdenDeProduccion> GetOPSupervisor(string user)
+        {
+            var result = new List<OrdenDeProduccion>();
+
+            using (var ctx = new ApplicationDbContext())
+            {
+                result = ctx.OrdenesDeProduccion.Where(x => x.UserId == user || x.Estado != EstadoOp.Finalizada).OrderBy(x => x.FechaDeInicio).ToList();
+            }
+            return result;
+        }
+
         public static void AsignarSupervisorCalidad(string numero, string userid)
         {
             try
@@ -329,17 +425,57 @@ namespace Services
                 throw new Exception(e.Message);
             }
         }
-        public static OrdenDeProduccion LineaOcupada(int linea)
+
+        public static void AsociarmeAOp(string numero)
         {
-            var result = new OrdenDeProduccion();
-
-            using (var ctx = new ApplicationDbContext())
+            try
             {
-                result = ctx.OrdenesDeProduccion.Where(x => x.IdLinea == linea && (x.Estado == Common.EstadoOp.Iniciada || x.Estado == Common.EstadoOp.Pausada)).DefaultIfEmpty().Single();
-            }
+                using (var ctx = new ApplicationDbContext())
+                {
+                    var Op = ctx.OrdenesDeProduccion.Where(x => x.Numero == numero).Single();
 
-            return result;
+                    Op.UserId = Common.CurrentUser.Get.UserId;
+
+                    ctx.Entry(Op).State = EntityState.Modified;
+                    ctx.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
+
+        public static void DesvincularSupervisorDeCalidad(string numero)
+        {
+            try
+            {
+                using(var db = new ApplicationDbContext())
+                {
+                    var Op = db.OrdenesDeProduccion.Where(x => x.Numero == numero).Single();
+
+                    if(Op.UserId != null)
+                    {
+                        Op.UserId = null;
+                    } else
+                    {
+                        throw new Exception();
+                    }
+
+                    db.Entry(Op).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+        #endregion
+
+        #region Updates
+
         public static void UpdateCantidadDeParesDePrimera(string Numero, int cantidad)
         {
             using (var db = new ApplicationDbContext())
@@ -352,20 +488,6 @@ namespace Services
                 db.SaveChanges();
             }
         }
-        public static HorarioDeControl ObtenerHorarioDeControl(string NumeroDeOrden)
-        {
-            HorarioDeControl horarioDeControl = null;
-            using (var db = new ApplicationDbContext())
-            {
-                horarioDeControl = (
-                                    from j in db.JornadasLaborales.Where(j => j.Numero == NumeroDeOrden)
-                                    from hdc in db.HorariosDeControl.Where(h => h.IdJornada == j.IdJornada)
-                                    select hdc
-                                    ).OrderByDescending(h => h.HoraInicio).First();
-            }
-            return horarioDeControl;
-        }
-        #region Updates
 
         public static void IniciarOp(string Numero)
         {

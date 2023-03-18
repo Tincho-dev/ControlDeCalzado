@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Model.Domain.ControlDeCalzado.OrdenDeProduccion>
+﻿@model IEnumerable<Model.Custom.OrdenDeProduccionGrid>
 
     @{
     ViewBag.Title = "Orden de Produccion";
@@ -11,7 +11,7 @@
 
     <h2>Ordenes de Produccion</h2>
 
-    @if (role == "SuperLinea")
+    @if (role == "SuperLinea" || role == "Admin")
 {
     <p>
         @Html.ActionLink("Crear Nueva Orden", "Create", "OrdenDeProduccion", new { @class = "btn" })
@@ -35,16 +35,19 @@
                 @Html.DisplayNameFor(model => model.CantidadDePrimera)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CantidadPorHermanado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodigoColor)
+                @Html.DisplayNameFor(model => model.Color)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Sku)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdLinea)
+                @Html.DisplayNameFor(model => model.Modelo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Linea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supervisor)
             </th>
             <th></th>
         </tr>
@@ -68,16 +71,19 @@
                     @Html.DisplayFor(modelItem => item.CantidadDePrimera)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CantidadPorHermanado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CodigoColor)
+                    @Html.DisplayFor(modelItem => item.Color)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Sku)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IdLinea)
+                    @Html.DisplayFor(modelItem => item.Modelo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Linea)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supervisor)
                 </td>
                 <td>
                     @Html.ActionLink("Detalles", "Details", new { id = item.Numero }, new { @class = "btn" })

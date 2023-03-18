@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Model.Domain.ControlDeCalzado;
+using Persistanse;
 using Services;
 
 namespace ControlDeCalzado.Controllers
@@ -24,6 +25,17 @@ namespace ControlDeCalzado.Controllers
         {
             var color = ColorService.Get(id);
             return View(color);
+        }
+
+        public JsonResult Buscar(string term)
+        {
+            using(var db = new ApplicationDbContext())
+            {
+                var colores = db.Colores.Where(x => x.DescripcionColor.Contains(term))
+                    .Select(x => new { value = x.CodigoColor, Descripcion = x.DescripcionColor }).Take(5).ToList();
+                return Json(colores, JsonRequestBehavior.AllowGet);
+            }
+            //var result = ColorService.Buscar(term);
         }
 
         [Authorize(Roles = "Admin")]

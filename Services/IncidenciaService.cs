@@ -1,11 +1,7 @@
 ﻿using Common;
-using Model.Domain.ControlDeCalzado;
 using Persistanse;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {

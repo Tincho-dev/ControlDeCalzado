@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Model.Domain.ControlDeCalzado.OrdenDeProduccion>
+
+@{
+    ViewBag.Title = "Ordenes de Produccion";
+}
+
+<h2>Ordenes de Produccion</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaDeInicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaDeFin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CantidadDePrimera)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CantidadPorHermanado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CodigoColor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sku)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdLinea)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Numero)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaDeInicio)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaDeFin)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CantidadDePrimera)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CantidadPorHermanado)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CodigoColor)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Sku)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.IdLinea)
+    </td>
+    <td>
+        @Html.ActionLink("Detalles", "Details", new { id = item.Numero }, new { @class = "btn" }) |
+
+        @if (item.UserId == null)
+        {
+            @Html.ActionLink("Asociarme a Op", "AsociarmeAOp", new { id = item.Numero }, new { @class = "btn" })
+        }
+    </td>
+</tr>
+}
+
+</table>

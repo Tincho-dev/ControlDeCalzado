@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
@@ -94,7 +92,8 @@ namespace Services
 			{
 				var originalEntity = db.Turnos.Where(x => x.IdTurno == turn.IdTurno).Single();
 
-				originalEntity = turn;
+				originalEntity.HoraDeInicio = turn.HoraDeInicio;
+				originalEntity.HoraDeFin = turn.HoraDeFin;
 
 				db.Entry(originalEntity).State = EntityState.Modified;
 				db.SaveChanges();

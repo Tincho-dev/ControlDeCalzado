@@ -9,6 +9,8 @@ namespace Model.Custom
         public string Name { get; set; }
         [Display(Name = "Apellido: ")]
         public string LastName { get; set; }
+
+        public string ApyNom { get; set; }
         [Display(Name = "Email: ")]
         public string Email { get; set; }
         public bool enabled { get; set; }

@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
@@ -87,7 +85,7 @@ namespace Services
             {
                 var originalEntity = db.LineasDeProduccion.Where(x => x.NumeroLinea == model.NumeroLinea).Single();
 
-                originalEntity = model;
+                originalEntity.NumeroLinea = model.NumeroLinea;
 
                 db.Entry(originalEntity).State = EntityState.Modified;
                 db.SaveChanges();

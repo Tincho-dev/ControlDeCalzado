@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
@@ -75,7 +73,11 @@ namespace Services
             {
                 var originalEntity = db.Modelos.Where(x => x.Sku == model.Sku).Single();
 
-                originalEntity = model;
+                originalEntity.Denominacion = model.Denominacion;
+                originalEntity.LimiteInferiorDeObservado = model.LimiteInferiorDeObservado;
+                originalEntity.LimiteInferiorDeReproceso = model.LimiteInferiorDeReproceso;
+                originalEntity.LimiteSuperiorDeObservado = model.LimiteSuperiorDeObservado;
+                originalEntity.LimiteSuperiorDeReproceso = model.LimiteSuperiorDeReproceso;
 
                 db.Entry(originalEntity).State = EntityState.Modified;
                 db.SaveChanges();

@@ -9,59 +9,60 @@
 
 @using (Html.BeginForm())
 {
-@Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    @* <h4>OrdenDeProduccion</h4>*@
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        @* <h4>OrdenDeProduccion</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaDeInicio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FechaDeInicio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FechaDeInicio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CodigoColor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.TextBoxFor(model => model.CodigoColor, new { @class = "form-control autocomplete"})*@
+                @Html.DropDownList("CodigoColor", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CodigoColor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sku, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Sku", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Sku, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdLinea, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdLinea", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdLinea, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear OP" class="btn" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.FechaDeInicio, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FechaDeInicio, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FechaDeInicio, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CodigoColor, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("CodigoColor", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CodigoColor, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Sku, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("Sku", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Sku, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdLinea, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("IdLinea", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.IdLinea, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Crear OP" class="btn" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
@@ -70,4 +71,75 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+
+    @*<script>
+            $(function () {
+                $("#DescripcionColor").autocomplete({
+                    source: "/Color/Buscar",
+                    select: function (event, ui) {
+                        $("#CodigoColor").val(ui.item.Id);
+                        $("#DescripcionColor").val(ui.item.Descripcion)
+                    }
+                }).autocomplete("instance")._renderItem = function (ul, item) {
+                    return $("<li>")
+                        .append("<div>" + item.Descripcion + "<div>")
+                        .appendTo(ul);
+                };
+            });
+        </script>*@
+
+    @*<script>
+            $(function () {
+                $(".autocomplete").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: '@Url.Action("Buscar", "Color")',
+                            dataType: "json",
+                            data: {
+                                term: request.term
+                            },
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return {
+                                        label: item.Descripcion,
+                                        value: item.value
+                                    };
+                                }));
+                            }
+                        });
+                    },
+                    minLength: 2,
+                    select: function (event, ui) {
+                        $(this).val(ui.item.label);
+                        $(this).next().val(ui.item.value);
+                        return false;
+                    }
+                });
+            });
+        </script>*@
+
+    @*<script>
+        $(function () {
+            $('.autocomplete').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("Buscar", "Color")',
+                        data: { term: request.term },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 2,
+                select: function (event, ui) {
+                    $(this).val(ui.item.label);
+                    $(this).siblings("input[type='hidden']").val(ui.item.value);
+                    return false;
+                }
+            });
+        });
+    </script>*@
 }

@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
@@ -97,6 +95,21 @@ namespace Services
             {
                 throw new Exception(e.Message);
             }
+        }
+
+        public static IEnumerable<Color> Buscar(string term)
+        {
+
+            IEnumerable<Color> busqueda;
+
+            using (var db = new ApplicationDbContext())
+            {
+                busqueda = (IEnumerable<Color>)db.Colores.Where(x => x.DescripcionColor.Contains(term))
+                    .Select(x=> x.DescripcionColor).Take(5).ToList();
+            }
+
+            return busqueda;
+
         }
 
         //public static IEnumerable<Color> Buscar(string palabra, string value)

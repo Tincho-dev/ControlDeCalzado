@@ -1,9 +1,7 @@
-﻿using System;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Model;
 using System.Data.Entity;
 using Model.Domain.ControlDeCalzado;
-using Model.Domain;
 using System.Linq;
 
 namespace Persistanse

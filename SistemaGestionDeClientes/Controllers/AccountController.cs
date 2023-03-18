@@ -8,6 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Services;
+using Model.Custom;
+using Persistanse;
 
 namespace ControlDeCalzado.Controllers
 {
@@ -86,10 +89,40 @@ namespace ControlDeCalzado.Controllers
                 return View(model);
             }
 
+            var resultado = new UserGrid();
+
+            using (var ctx = new ApplicationDbContext())
+            {
+                resultado = (
+                        from aur in ctx.ApplicationUserRoles.Where(x => x.UserId == currentUser.Id).DefaultIfEmpty()
+                        from ar in ctx.ApplicationRole.Where(x => x.Id == aur.RoleId).DefaultIfEmpty()
+                        select new UserGrid
+                        {
+                            Role = ar.Name
+                        }
+                       ).Single();
+            };
+
             var identity = await UserManager.CreateIdentityAsync(currentUser, DefaultAuthenticationTypes.ApplicationCookie);
 
             identity = await ApplicationUser.CreateUserClaims(identity, UserManager, currentUser.Id);
             AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, identity);
+
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else if (resultado.Role == "SuperCalidad")
+            {
+                return RedirectToAction("IndexSupervisor", "OrdenDeProduccion");
+            }else if (resultado.Role == "SuperLinea")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             return RedirectToLocal(returnUrl);
         }

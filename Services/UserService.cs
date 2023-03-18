@@ -111,5 +111,26 @@ namespace Services
                 throw new Exception(e.Message);
             }
         }
+
+        public IEnumerable<UserGrid> ObtenerSupervisoresDeCalidad()
+        {
+            var result = new List<UserGrid>();
+
+            using(var db = new ApplicationDbContext())
+            {
+                result =(from au in db.ApplicationUsers
+                        from aur in db.ApplicationUserRoles.Where(x => x.UserId == au.Id).DefaultIfEmpty()
+                        from ar in db.ApplicationRole.Where(x => x.Id == aur.RoleId && x.Name == "SuperCalidad").DefaultIfEmpty()
+                        from op in db.OrdenesDeProduccion.Where(x => x.UserId != au.Id).DefaultIfEmpty()
+                        select new UserGrid
+                        {
+                            Id = au.Id,
+                            ApyNom = au.Name + " " + au.LastName
+                        }
+                     ).OrderBy(x => x.ApyNom).ToList();
+            }
+
+            return result;
+        }
     }
 }

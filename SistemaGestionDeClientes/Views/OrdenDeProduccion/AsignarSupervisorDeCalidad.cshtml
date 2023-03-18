@@ -1,0 +1,70 @@
+﻿@model Model.Domain.ControlDeCalzado.OrdenDeProduccion
+@{
+    List<Model.Custom.UserGrid> users = ViewBag.Users;
+}
+
+<h2>Asignar Supervisor De Calidad a OP @Model.Numero</h2>
+
+<div class="row" style="padding-bottom:30px">
+
+    <div class="col-md-4">
+        <ul>
+            <li>
+
+                <h4 style="text-align:left;">Fecha de Inicio: @Model.FechaDeInicio.ToString("dd/MM/yyyy")</h4>
+            </li>
+            <li>
+                <h4 style="text-align:left;">Línea: @Model.IdLinea</h4>
+            </li>
+        </ul>
+    </div> <!-- CIERRE COL 1 DE DATOS-->
+
+    <div class="col-md-4">
+        <ul>
+            <li>
+                <h4 style="text-align:left;">Sku: @Model.Sku</h4>
+            </li>
+            <li>
+                <h4 style="text-align:left;">Modelo: @ViewBag.Modelo.Denominacion</h4>
+            </li>
+        </ul>
+    </div> <!-- CIERRE COL 2 DE DATOS-->
+
+    <div class="col-md-4">
+        <ul>
+            <li>
+                <h4 style="text-align:left;">Codigo Color: @Model.CodigoColor</h4>
+            </li>
+            <li>
+                <h4 style="text-align:left;">Color: @ViewBag.Color.DescripcionColor</h4>
+            </li>
+        </ul>
+    </div>  <!-- CIERRE COL 3 DE DATOS-->
+
+</div>  <!-- CIERRE ROW 1-->
+
+<hr />
+
+<h3 class="page-header">Supervisores Disponibles</h3>
+
+@using(Html.BeginForm("AsignarSupervisorDeCalidad", "OrdenDeProduccion", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.Numero)
+    <div class="form-group">
+        <select name="user" class="form-control">
+            @foreach(var u in users)
+            {
+            <option value="@u.Id">@u.ApyNom</option>
+            }
+        </select>
+        <br />
+        <button type="submit" class="btn">
+            Agregar
+        </button>
+    </div>
+}
+
+<div>
+    <a class="btn" href="javascript:void(0);" onclick="history.go(-1);">Volver a la Lista</a>
+</div>
+
