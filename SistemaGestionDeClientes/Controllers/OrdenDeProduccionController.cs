@@ -251,7 +251,9 @@ namespace ControlDeCalzado.Controllers
 
             if (Op != null)
             {
-                throw new ApplicationException("El Usuario ya tiene una Op asociada");
+                ModelState.AddModelError("AsociarOP", "El Usuario ya tiene una Op asociada");
+                //throw new ApplicationException("El Usuario ya tiene una Op asociada");
+                return RedirectToAction("IndexSupervisor");
             }
 
             OrdenDeProduccionService.AsignarSupervisorCalidad(numero, user);
@@ -265,7 +267,10 @@ namespace ControlDeCalzado.Controllers
 
             if (Op != null)
             {
-                throw new ApplicationException("El Usuario ya tiene una Op asociada");
+                ModelState.AddModelError("AsociarOP","El Usuario ya tiene una Op asociada");
+                //throw new ApplicationException("El Usuario ya tiene una Op asociada");
+                return RedirectToAction("IndexSupervisor");
+
             }
 
             OrdenDeProduccionService.AsociarmeAOp(id);
