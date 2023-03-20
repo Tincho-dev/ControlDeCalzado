@@ -23,6 +23,7 @@
     </div>
 </body>
 
+@*mover a semaforo.css*@
 <style>
     * {
         padding: 0;
@@ -98,7 +99,8 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function (result) {
-
+                    //remover todas las clases
+                    //agregar el color en funcion de la consultra
                     if (result.contador == 0 && result.limiteInferior == 0 && result.limiteSuperior == 0) {
                         $('#verde').removeClass('green');
                         $('#amarillo').removeClass('yellow');

@@ -21,6 +21,469 @@ using System.Web.UI;
 using System.Web.WebPages;
 using System.Web.WebPages.Html;
 
+#line 2 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+using Common;
+
+#line default
+#line hidden
+
+#line 3 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+using System.Text.RegularExpressions;
+
+#line default
+#line hidden
+
+public class _Page_Views_OrdenDeProduccion_Inspeccionar_cshtml : System.Web.WebPages.WebPage {
+private static object @__o;
+#line hidden
+public _Page_Views_OrdenDeProduccion_Inspeccionar_cshtml() {
+}
+protected System.Web.HttpApplication ApplicationInstance {
+get {
+return ((System.Web.HttpApplication)(Context.ApplicationInstance));
+}
+}
+public override void Execute() {
+
+#line 1 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+__o = model;
+
+
+#line default
+#line hidden
+
+#line 4 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+  
+    ViewBag.Title = "Inspeccionar";
+
+
+#line default
+#line hidden
+
+#line 5 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                         __o = Model.FechaDeInicio.ToString("dd/MM/yyyy");
+
+
+#line default
+#line hidden
+
+#line 6 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                               __o = Model.IdLinea;
+
+
+#line default
+#line hidden
+
+#line 7 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                             __o = Model.Sku;
+
+
+#line default
+#line hidden
+
+#line 8 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                __o = ViewBag.Modelo.Denominacion;
+
+
+#line default
+#line hidden
+
+#line 9 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                      __o = Model.CodigoColor;
+
+
+#line default
+#line hidden
+
+#line 10 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                               __o = ViewBag.Color.DescripcionColor;
+
+
+#line default
+#line hidden
+
+#line 11 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+Inspeccionar.cshtml"
+            foreach (var item in ViewBag.DefectosO)
+            {
+            
+
+#line default
+12ine hidden
+
+#line 13 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                     __o = item.IdDefecto;
+
+
+#line default
+13ine hidden
+
+#line 14 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                       __o = item.IdDefecto;
+
+
+#line default
+14ine hidden
+
+#line 15 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                    __o = (int)Pie.Izquierdo;
+
+
+#line default
+15ine hidden
+
+#line 16 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                                          __o = (int)TipoDefecto.Observado;
+
+
+#line default
+16ine hidden
+
+#line 17 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                              __o = item.IdDefecto;
+
+
+#line default
+17ine hidden
+
+#line 18 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                     __o = item.IdDefecto;
+
+
+#line default
+18ine hidden
+
+#line 19 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                       __o = item.IdDefecto;
+
+
+#line default
+19ine hidden
+
+#line 20 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                    __o = (int)Pie.Izquierdo;
+
+
+#line default
+20ine hidden
+
+#line 21 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                                          __o = (int)TipoDefecto.Observado;
+
+
+#line default
+21ine hidden
+
+#line 22 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+               __o = Html.Raw(item.DescripcionDefecto);
+
+
+#line default
+22ine hidden
+
+#line 23 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                     __o = item.IdDefecto;
+
+
+#line default
+23ine hidden
+
+#line 24 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                       __o = item.IdDefecto;
+
+
+#line default
+24ine hidden
+
+#line 25 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                  __o = (int)Pie.Derecho;
+
+
+#line default
+25ine hidden
+
+#line 26 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                                      __o = (int)TipoDefecto.Observado;
+
+
+#line default
+26ine hidden
+
+#line 27 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                              __o = item.IdDefecto;
+
+
+#line default
+27ine hidden
+
+#line 28 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                     __o = item.IdDefecto;
+
+
+#line default
+28ine hidden
+
+#line 29 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                       __o = item.IdDefecto;
+
+
+#line default
+29ine hidden
+
+#line 30 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                  __o = (int)Pie.Derecho;
+
+
+#line default
+30ine hidden
+
+#line 31 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                                      __o = (int)TipoDefecto.Observado;
+
+
+#line default
+31ine hidden
+
+#line 32 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                 
+            }
+
+#line default
+32ine hidden
+
+#line 33 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+            foreach (var item in ViewBag.DefectosR)
+            {
+            
+
+#line default
+33ine hidden
+
+#line 34 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                     __o = item.IdDefecto;
+
+
+#line default
+34ine hidden
+
+#line 35 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                       __o = item.IdDefecto;
+
+
+#line default
+35ine hidden
+
+#line 36 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                    __o = (int)Pie.Izquierdo;
+
+
+#line default
+36ine hidden
+
+#line 37 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                                          __o = (int)TipoDefecto.Reproceso;
+
+
+#line default
+37ine hidden
+
+#line 38 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                              __o = item.IdDefecto;
+
+
+#line default
+38ine hidden
+
+#line 39 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                     __o = item.IdDefecto;
+
+
+#line default
+39ine hidden
+
+#line 40 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                       __o = item.IdDefecto;
+
+
+#line default
+40ine hidden
+
+#line 41 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                    __o = (int)Pie.Izquierdo;
+
+
+#line default
+41ine hidden
+
+#line 42 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                                          __o = (int)TipoDefecto.Reproceso;
+
+
+#line default
+42ine hidden
+
+#line 43 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+               __o = Html.Raw(item.DescripcionDefecto);
+
+
+#line default
+43ine hidden
+
+#line 44 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                     __o = item.IdDefecto;
+
+
+#line default
+44ine hidden
+
+#line 45 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                       __o = item.IdDefecto;
+
+
+#line default
+45ine hidden
+
+#line 46 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                  __o = (int)Pie.Derecho;
+
+
+#line default
+46ine hidden
+
+#line 47 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                                      __o = (int)TipoDefecto.Reproceso;
+
+
+#line default
+47ine hidden
+
+#line 48 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                              __o = item.IdDefecto;
+
+
+#line default
+48ine hidden
+
+#line 49 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                     __o = item.IdDefecto;
+
+
+#line default
+49ine hidden
+
+#line 50 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                       __o = item.IdDefecto;
+
+
+#line default
+50ine hidden
+
+#line 51 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                  __o = (int)Pie.Derecho;
+
+
+#line default
+51ine hidden
+
+#line 52 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                                                                                                                      __o = (int)TipoDefecto.Reproceso;
+
+
+#line default
+52ine hidden
+
+#line 53 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                 
+            }
+
+#line default
+53ine hidden
+
+#line 54 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+   __o = Html.ActionLink("Pausar OP", "PausarOp", "OrdenDeProduccion", new { id = Model.Numero }, new { @class = "btn" });
+
+
+#line default
+54ine hidden
+
+#line 55 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+   __o = Html.ActionLink("Terminar OP", "TerminarOp", "OrdenDeProduccion", new { id = Model.Numero }, new { @class = "btn" });
+
+
+#line default
+#line hidden
+DefineSection("Scripts55 () => {
+
+
+#line 56 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+__o = Scripts.Render("~/bundles/jqueryval");
+
+
+#line default
+56ine hidden
+
+#line 57 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                            __o = Model.Numero;
+
+
+#line default
+57ine hidden
+
+#line 58 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                 __o = Url.Action("ActualizarCantidad", "OrdenDeProduccion");
+
+
+#line default
+58ine hidden
+
+#line 59 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                            __o = ViewBag.IdHorarioDeControl;
+
+
+#line default
+59ine hidden
+
+#line 60 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                 __o = Url.Action("RegistrarDefecto", "OrdenDeProduccion");
+
+
+#line default
+60ine hidden
+
+#line 61 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
+                                                __o = ViewBag.IdHorarioDeControl;
+
+
+#line default
+#line hidden
+});
+
+}
+}
+}
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//     Runtime Version:4.0.30319.42000
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+namespace ASP {
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Helpers;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.WebPages;
+using System.Web.WebPages.Html;
+
 #line 2 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\OrdenDeProduccion\Inspeccionar.cshtml"
 using Common;
 

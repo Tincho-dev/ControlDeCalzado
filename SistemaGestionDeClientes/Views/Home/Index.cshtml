@@ -41,9 +41,6 @@
                 <p><a class="btn" href='@Url.Action("Index", "Modelo")'>Modelos &raquo;</a></p>
             </div>
 
-        }
-        if (role == "Admin" || role == "SuperLinea")
-        {
             <div class="col-md-2">
                 <h2>Lineas</h2>
                 <p>Gestionar Lineas</p>
@@ -61,6 +58,9 @@
                 <p>Gestionar Turnos</p>
                 <p><a class="btn" href='@Url.Action("Index", "Turno")'>Turno &raquo;</a></p>
             </div>
+        }
+        if (role == "Admin" || role == "SuperLinea")
+        {
 
             <div class="col-md-2">
                 <h2>Ordenes de Produccion</h2>

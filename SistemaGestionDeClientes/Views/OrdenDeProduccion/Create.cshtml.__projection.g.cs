@@ -21,6 +21,218 @@ using System.Web.UI;
 using System.Web.WebPages;
 using System.Web.WebPages.Html;
 
+public class _Page_Create_cshtml : System.Web.WebPages.WebPage {
+private static object @__o;
+#line hidden
+public _Page_Create_cshtml() {
+}
+protected System.Web.HttpApplication ApplicationInstance {
+get {
+return ((System.Web.HttpApplication)(Context.ApplicationInstance));
+}
+}
+public override void Execute() {
+
+#line 1 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+__o = model;
+
+
+#line default
+#line hidden
+
+#line 2 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+  
+    ViewBag.Title = "Orden de Produccion";
+
+
+#line default
+#line hidden
+
+#line 3 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+using (Html.BeginForm())
+{
+    
+
+#line default
+#line hidden
+
+#line 4 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+__o = Html.AntiForgeryToken();
+
+
+#line default
+#line hidden
+
+#line 5 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+                            
+
+    
+
+#line default
+#line hidden
+
+#line 6 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+   __o = Html.ValidationSummary(true, "", new { @class = "text-danger" });
+
+
+#line default
+#line hidden
+
+#line 7 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+   __o = ;
+
+
+#line default
+#line hidden
+
+#line 8 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+       __o = Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" });
+
+
+#line default
+#line hidden
+
+#line 9 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+           __o = Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } });
+
+
+#line default
+#line hidden
+
+#line 10 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+           __o = Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" });
+
+
+#line default
+#line hidden
+
+#line 11 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+       __o = Html.LabelFor(model => model.FechaDeInicio, htmlAttributes: new { @class = "control-label col-md-2" });
+
+
+#line default
+#line hidden
+
+#line 12 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+           __o = Html.EditorFor(model => model.FechaDeInicio, new { htmlAttributes = new { @class = "form-control" } });
+
+
+#line default
+#line hidden
+
+#line 13 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+           __o = Html.ValidationMessageFor(model => model.FechaDeInicio, "", new { @class = "text-danger" });
+
+
+#line default
+#line hidden
+
+#line 14 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+       __o = Html.LabelFor(model => model.CodigoColor, htmlAttributes: new { @class = "control-label col-md-2" });
+
+
+#line default
+#line hidden
+
+#line 15 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+           __o = Html.DropDownList("CodigoColor", null, htmlAttributes: new { @class = "form-control" });
+
+
+#line default
+#line hidden
+
+#line 16 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+           __o = Html.ValidationMessageFor(model => model.CodigoColor, "", new { @class = "text-danger" });
+
+
+#line default
+#line hidden
+
+#line 17 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+       __o = Html.LabelFor(model => model.Sku, htmlAttributes: new { @class = "control-label col-md-2" });
+
+
+#line default
+#line hidden
+
+#line 18 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+           __o = Html.DropDownList("Sku", null, htmlAttributes: new { @class = "form-control" });
+
+
+#line default
+#line hidden
+
+#line 19 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+           __o = Html.ValidationMessageFor(model => model.Sku, "", new { @class = "text-danger" });
+
+
+#line default
+#line hidden
+
+#line 20 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+       __o = Html.LabelFor(model => model.IdLinea, htmlAttributes: new { @class = "control-label col-md-2" });
+
+
+#line default
+#line hidden
+
+#line 21 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+           __o = Html.DropDownList("IdLinea", null, htmlAttributes: new { @class = "form-control" });
+
+
+#line default
+#line hidden
+
+#line 22 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+           __o = Html.ValidationMessageFor(model => model.IdLinea, "", new { @class = "text-danger" });
+
+
+#line default
+#line hidden
+
+#line 23 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+          
+}
+
+#line default
+#line hidden
+DefineSection("Scripts", () => {
+
+
+#line 24 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\OrdenDeProduccion\Create.cshtml"
+__o = Scripts.Render("~/bundles/jqueryval");
+
+
+#line default
+#line hidden
+});
+
+}
+}
+}
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//     Runtime Version:4.0.30319.42000
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+namespace ASP {
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Helpers;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.WebPages;
+using System.Web.WebPages.Html;
+
 public class _Page_Views_OrdenDeProduccion_Create_cshtml : System.Web.WebPages.WebPage {
 private static object @__o;
 #line hidden

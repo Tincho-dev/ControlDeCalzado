@@ -33,7 +33,7 @@ return ((System.Web.HttpApplication)(Context.ApplicationInstance));
 }
 public override void Execute() {
 
-#line 1 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+#line 1 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
   
     ViewBag.Title = "Inicio";
     var role = string.Empty;
@@ -46,7 +46,7 @@ public override void Execute() {
 #line default
 #line hidden
 
-#line 2 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+#line 2 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
     if (Request.IsAuthenticated)
     {
         
@@ -54,28 +54,154 @@ public override void Execute() {
 #line default
 #line hidden
 
-#line 3 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+#line 3 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
             __o = Common.CurrentUser.Get.Name;
 
 
 #line default
 #line hidden
 
-#line 4 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+#line 4 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
                                                   
         
 
 #line default
 #line hidden
 
-#line 5 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+#line 5 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
             __o = role;
 
 
 #line default
 #line hidden
 
-#line 6 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+#line 6 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+                           
+    }
+    else
+    {
+        
+
+#line default
+#line hidden
+
+#line 7 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+                                              
+        
+
+#line default
+#line hidden
+
+#line 8 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+                                                        
+        
+
+#line default
+#line hidden
+
+#line 9 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+                __o = Url.Action("Login", "Account");
+
+
+#line default
+#line hidden
+
+#line 10 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+            
+    }
+
+#line default
+#line hidden
+
+#line 11 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+    if (Request.IsAuthenticated)
+    {
+        if (role == "Admin")
+        {
+            
+
+#line default
+#line hidden
+
+#line 12 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+                                   __o = Url.Action("Index", "Color");
+
+
+#line default
+#line hidden
+
+#line 13 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+                  
+            
+
+#line default
+#line hidden
+
+#line 14 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+                                   __o = Url.Action("Index", "Modelo");
+
+
+#line default
+#line hidden
+
+#line 15 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+                  
+              
+          rl.Aion("Index", "LineaDeProduccion");
+
+        }ntesws\Home\Index.cshtml"
+     Url.Action("Index", "Defecto")             
+        }
+
+
+
+    }
+
+#line default
+#line hidden                  
+        if (rUrl.Action("Index", "LineaDeProduccion")ole == "AdmiUrl.Action("Index", "LineaDeProduccion")n" || role == "SuperLinea")
+        colUrl.Action("Index", "Defecto")-md-2">--   Url.Action("Index", "LineaDeProduccion")             <h2>Ordenes-de-Produccio            
+
+n</h2>
+             
+
+                       on</            
+p>
+                <p><                                   __o = Url.Action("Index", "Turno");i'@c
+orrect behavior and will be lost if
+//     the c'>O     Url.Action("Index", "Defecto")       
+
+rdenes &raquoo</                                   __o = Url.Action("Index", "Defecto");
+
+
+#line default
+#line hidden
+
+#line 19 "C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B3            
+
+8D80\2\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+a></p>er            
+</div>IO;
+u
+
+#line default
+#line hidden
+
+#line 20 .C:\Users\user\AppData\Local\Temp\9444C8B66D57C422C79C98C6B25CA3B38D8Url.Action("Index", "Turno")0\u\ControlDeCalzado2\SistemaGestionDeClientes\Views\Home\Index.cshtmls44                                   __o232lDeCalzado2\SistemaGeTurnoies
+
+  #line4default59#lineehiddenrole#lineS21 .C:\Users\user\AppDa       
+
+#line default
+#line hidden
+
+#line 5 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DE240FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\Home\Index.cshtml"
+            __o = role;
+
+
+#line default
+#line hidden
+
+#line 6 "C:\Users\user\AppData\Local\Temp\116668446E4AAC94DEC00FC5759EA5DDFDD3\3\ControlDeCalzado\SistemaGestionDeClientes\Views\Ho25\Index.cshtml"
                            
     }
     else

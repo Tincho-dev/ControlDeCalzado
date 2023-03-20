@@ -63,13 +63,24 @@ namespace ControlDeCalzado.Controllers
             }
             catch (ApplicationException e)
             {
-                //ModelState.AddModelError();//googlear 
+                ModelState.AddModelError("Domain",e.Message);
             }
             ViewBag.CodigoColor = new SelectList(ColorService.GetAll(), "CodigoColor", "DescripcionColor");
             ViewBag.Sku = new SelectList(ModeloService.GetAll(), "Sku", "Denominacion");
             ViewBag.IdLinea = new SelectList(LineaDeProduccionService.GetAllAviable(), "IdLinea", "NumeroLinea");
+
             return View(OrdenDeProduccion);
         }
+
+        private ControllerBase CargarModeloColorLinea()
+        {
+            ViewBag.CodigoColor = new SelectList(ColorService.GetAll(), "CodigoColor", "DescripcionColor");
+            ViewBag.Sku = new SelectList(ModeloService.GetAll(), "Sku", "Denominacion");
+            ViewBag.IdLinea = new SelectList(LineaDeProduccionService.GetAllAviable(), "IdLinea", "NumeroLinea");
+
+            return ViewBag;
+        }
+
 
         // GET: OrdenDeProduccion/Edit/5
         [CustomAuthorize(Roles = "SuperLinea")]
@@ -155,7 +166,7 @@ namespace ControlDeCalzado.Controllers
             ViewBag.IdHOrarioDeControl = OrdenDeProduccionService.HorarioActual(id);
 
             //long poolling, contador para refrescar contador de alerta js y jquery para consultar y mostrar
-            //boton de ver semadoro en inicio o en la vista de inspeccionar
+            //boton de ver semaforo en inicio o en la vista de inspeccionar
 
             return View("Inspeccionar", op);
         }
@@ -186,8 +197,9 @@ namespace ControlDeCalzado.Controllers
         {
             OrdenDeProduccionService.RegistrarIncidencia(cantidad, idHorarioDeControl);
             //guardar valor en base de datos
-            int nuevaCantidad = OrdenDeProduccionService.TotalIncidenciasPrimera(numeroDeOrden);
-            OrdenDeProduccionService.UpdateCantidadDeParesDePrimera(numeroDeOrden, nuevaCantidad);
+            int nuevaCantidad = OrdenDeProduccionService.TotalIncidenciasPrimeraEnHorarioDeControl(idHorarioDeControl);
+            int totalParesDePrimera = OrdenDeProduccionService.TotalIncidenciasPrimera(numeroDeOrden);
+            OrdenDeProduccionService.UpdateCantidadDeParesDePrimera(numeroDeOrden, totalParesDePrimera);
 
             return Json(nuevaCantidad);
         }
@@ -214,6 +226,13 @@ namespace ControlDeCalzado.Controllers
         public ActionResult PausarOp(string id)
         {
             OrdenDeProduccionService.PausarOp(id);
+            return RedirectToAction("Details", new { id = id });  
+        } 
+
+        [CustomAuthorize(Roles = "SuperCalidad")]
+        public ActionResult CambiarEstadoOp(string id, EstadoOp estado)
+        {
+            OrdenDeProduccionService.CambiarEstadoOrdenDeProduccion(id, estado);
             return RedirectToAction("Details", new { id = id });  
         }
         #endregion

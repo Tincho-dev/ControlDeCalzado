@@ -1,4 +1,5 @@
-﻿using Model.Domain.ControlDeCalzado;
+﻿using Common;
+using Model.Domain.ControlDeCalzado;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace ControlDeCalzado.Controllers
 {
     public class LineaDeProduccionController : Controller
     {
-        [Authorize(Roles = "Admin, SuperLinea")]
+        [CustomAuthorize(Roles = "Admin, SuperLinea")]
         // GET: LineaDeProduccion
         public ActionResult Index()
         {
@@ -18,7 +19,7 @@ namespace ControlDeCalzado.Controllers
             return View(LineaDeProduccions);
         }
 
-        [Authorize(Roles = "Admin, SuperLinea")]
+        [CustomAuthorize(Roles = "Admin, SuperLinea")]
         // GET: LineaDeProduccion/Details/5
         public ActionResult Details(int id)
         {
@@ -26,7 +27,7 @@ namespace ControlDeCalzado.Controllers
             return View(LineaDeProduccion);
         }
 
-        [Authorize(Roles = "Admin, SuperLinea")]
+        [CustomAuthorize(Roles = "Admin, SuperLinea")]
         // GET: LineaDeProduccion/Create
         public ActionResult Create()
         {
@@ -39,15 +40,23 @@ namespace ControlDeCalzado.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Comprobamos que no haya una linea con el mismo numero
-                LineaDeProduccionService.Create(LineaDeProduccion);
-
-                return RedirectToAction("Index");
+                try
+                {
+                    //Comprobamos que no haya una linea con el mismo numero
+                    LineaDeProduccionService.Create(LineaDeProduccion);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ViewBag.Error = e.Message;
+                    ModelState.AddModelError("Domain", e.Message);
+                }
             }
+
             return View(LineaDeProduccion);
         }
 
-        [Authorize(Roles = "Admin, SuperLinea")]
+        [CustomAuthorize(Roles = "Admin, SuperLinea")]
         // GET: LineaDeProduccion/Edit/5
         public ActionResult Edit(int id)
         {
@@ -74,7 +83,7 @@ namespace ControlDeCalzado.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin, SuperLinea")]
+        [CustomAuthorize(Roles = "Admin, SuperLinea")]
         // GET: LineaDeProduccion/Delete/5
         public ActionResult Delete(int id)
         {

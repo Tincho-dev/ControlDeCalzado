@@ -1,4 +1,117 @@
 /* BEGIN EXTERNAL SOURCE */
+function name19() {
+btnActualizarDefecto(/*************/,'/***************/Izquierdo', /*******************/,/***************************/,-1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name20() {
+btnActualizarDefecto(/*************/,'/***************/Izquierdo', /*******************/,/***************************/,1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name21() {
+btnActualizarDefecto(/*************/,'/***************/Derecho', /*****************/,/***************************/,-1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name22() {
+btnActualizarDefecto(/*************/,'/***************/Derecho', /*****************/,/***************************/,1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name23() {
+btnActualizarDefecto(/*************/,'/***************/Izquierdo', /*******************/,/***************************/,-1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name24() {
+btnActualizarDefecto(/*************/,'/***************/Izquierdo', /*******************/,/***************************/,1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name25() {
+btnActualizarDefecto(/*************/,'/***************/Derecho', /*****************/,/***************************/,-1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name26() {
+btnActualizarDefecto(/*************/,'/***************/Derecho', /*****************/,/***************************/,1)
+}
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+
+		$(document).ready(function () {
+			$('#btnSumar').click(function () {
+                actualizarCantidad(1);
+            });
+
+            $('#btnRestar').click(function () {
+                actualizarCantidad(-1);
+            });
+        });
+
+        function actualizarCantidad(cantidad) {
+            var numeroDeOrden = "/***********/";
+            var cantidadActual = parseInt($('#lblcantidad').text());
+            var nuevaCantidad = cantidadActual + cantidad;
+
+            if (nuevaCantidad < 0) {
+                alert('No se permiten numeros negativos');
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/****************************************************/",
+                data: {
+                    numeroDeOrden: numeroDeOrden,
+                    idHorarioDeControl: parseInt(/*************************/),
+					cantidad: cantidad
+				},
+                success: function (response) {
+                    $('#lblcantidad').text(response);
+                }
+            });
+        }
+
+
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+
+
+        function btnActualizarDefecto(IdDefecto,id,pie,tipoDefecto,cantidad) {
+			//var cantidadActual = parseInt($('#lblcantidad').text());
+            //var id = `${descripcionDefecto}Contador`;
+            var cantidadActual = parseInt($(`#${id}`).text());
+            var nuevaCantidad = cantidadActual + cantidad;
+
+            if (nuevaCantidad < 0) {
+                alert('No se permiten numeros negativos');
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/**************************************************/",
+                data: {
+						idHorarioDeControl: parseInt(/*************************/),
+						cantidad: cantidad,
+						IdDefecto:IdDefecto,
+						pie:pie,
+						tipoDefecto:tipoDefecto},
+				success: function (response) {
+					console.log("Defecto registrado");
+					console.log(cantidadActual);
+					console.log(response);
+					console.log(id);
+                    $(`#${id}`).text(response);
+                }
+            });
+        }
+
+    
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
 function name448() {
 btnActualizarDefecto(/*************/,'/***************/Izquierdo', /*******************/,/***************************/,-1)
 }

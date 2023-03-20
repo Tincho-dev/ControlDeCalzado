@@ -1,4 +1,5 @@
-﻿using Model.Domain.ControlDeCalzado;
+﻿using Common;
+using Model.Domain.ControlDeCalzado;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace SistemaGestionDeClientes.Controllers
 {
     public class TurnoController : Controller
     {
-		[Authorize(Roles = "Admin, SuperLinea")]
+		[CustomAuthorize(Roles = "Admin, SuperLinea")]
 		// GET: Turno
 		public ActionResult Index()
         {
@@ -18,7 +19,7 @@ namespace SistemaGestionDeClientes.Controllers
 			return View(turnos);
 		}
 
-		[Authorize(Roles = "Admin, SuperLinea")]
+		[CustomAuthorize(Roles = "Admin, SuperLinea")]
 		// GET: Turno/Details/5
 		public ActionResult Details(int id)
         {
@@ -26,7 +27,7 @@ namespace SistemaGestionDeClientes.Controllers
 			return View(turnos);
 		}
 
-		[Authorize(Roles = "Admin")]
+		[CustomAuthorize(Roles = "Admin")]
 		// GET: Turno/Create
 		public ActionResult Create()
         {
@@ -46,7 +47,7 @@ namespace SistemaGestionDeClientes.Controllers
 			return View(turno);
 		}
 
-		[Authorize(Roles = "Admin")]
+		[CustomAuthorize(Roles = "Admin")]
 		// GET: Turno/Edit/5
 		public ActionResult Edit(int id)
         {
@@ -73,7 +74,7 @@ namespace SistemaGestionDeClientes.Controllers
 			}
 		}
 
-		[Authorize(Roles = "Admin")]
+		[CustomAuthorize(Roles = "Admin")]
 		// GET: Turno/Delete/5
 		public ActionResult Delete(int id)
         {

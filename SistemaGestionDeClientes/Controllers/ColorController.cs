@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Common;
 using Model.Domain.ControlDeCalzado;
 using Persistanse;
 using Services;
@@ -11,7 +12,7 @@ namespace ControlDeCalzado.Controllers
 {
     public class ColorController : Controller
     {
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Color
         public ActionResult Index()
         {
@@ -19,7 +20,7 @@ namespace ControlDeCalzado.Controllers
             return View(colores);
         }
 
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Color/Details/5
         public ActionResult Details(string id)
         {
@@ -38,7 +39,7 @@ namespace ControlDeCalzado.Controllers
             //var result = ColorService.Buscar(term);
         }
 
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Color/Create
         public ActionResult Create()
         {
@@ -59,7 +60,7 @@ namespace ControlDeCalzado.Controllers
             }
             return View(color);
         }
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Color/Edit/5
         public ActionResult Edit(string id)
         {
@@ -86,7 +87,7 @@ namespace ControlDeCalzado.Controllers
                 throw new Exception(e.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Color/Delete/5
         public ActionResult Delete(string id)
         {

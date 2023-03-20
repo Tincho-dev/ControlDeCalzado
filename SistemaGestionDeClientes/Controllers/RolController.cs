@@ -1,22 +1,23 @@
-﻿using System.Web.Mvc;
+﻿using Common;
+using System.Web.Mvc;
 
 namespace ControlDeCalzado.Controllers
 {
     public class RolController : Controller
     {
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Rol
         public ActionResult Index()
         {
             return View();
         }
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Rol/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Rol/Create
         public ActionResult Create()
         {

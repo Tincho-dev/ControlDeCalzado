@@ -267,7 +267,6 @@ namespace Services
                 CantidadIncidencia = cantidad,
                 Tipo = TipoIncidencia.Primera,
                 IdHorarioDeControl = idHorarioDeControl
-
             };
 
             using (var db = new ApplicationDbContext())

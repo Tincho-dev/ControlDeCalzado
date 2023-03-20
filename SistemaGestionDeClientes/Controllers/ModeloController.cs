@@ -1,4 +1,5 @@
-﻿using Model.Domain.ControlDeCalzado;
+﻿using Common;
+using Model.Domain.ControlDeCalzado;
 using Services;
 using System;
 using System.Web.Mvc;
@@ -7,7 +8,7 @@ namespace ControlDeCalzado.Controllers
 {
     public class ModeloController : Controller
     {
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Modelo
         public ActionResult Index()
         {
@@ -15,7 +16,7 @@ namespace ControlDeCalzado.Controllers
             return View(modelos);
         }
 
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Modelo/Details/5
         public ActionResult Details(string id)
         {
@@ -23,7 +24,7 @@ namespace ControlDeCalzado.Controllers
             return View(modelo);
         }
 
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Modelo/Create
         public ActionResult Create()
         {
@@ -43,7 +44,7 @@ namespace ControlDeCalzado.Controllers
             return View(modelo);
         }
 
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Modelo/Edit/5
         public ActionResult Edit(string id)
         {
@@ -70,7 +71,7 @@ namespace ControlDeCalzado.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         // GET: Modelo/Delete/5
         public ActionResult Delete(string id)
         {

@@ -12,7 +12,7 @@ namespace ControlDeCalzado.Controllers
 {
     public class DefectoController : Controller
     {
-        [Authorize(Roles = "Admin, SuperLinea")]
+        [CustomAuthorize(Roles = "Admin, SuperLinea")]
         // GET: Defecto
         public ActionResult Index()
         {
@@ -20,7 +20,7 @@ namespace ControlDeCalzado.Controllers
             return View(Defectos);
         }
 
-        [Authorize(Roles = "Admin, SuperLinea")]
+        [CustomAuthorize(Roles = "Admin, SuperLinea")]
         // GET: Defecto/Details/5
         public ActionResult Details(int id)
         {
@@ -28,7 +28,7 @@ namespace ControlDeCalzado.Controllers
             return View(Defecto);
         }
 
-        [Authorize(Roles = "Admin, SuperLinea")]
+        [CustomAuthorize(Roles = "Admin, SuperLinea")]
         // GET: Defecto/Create
         public ActionResult Create()
         {
@@ -56,7 +56,7 @@ namespace ControlDeCalzado.Controllers
             return View(Defecto);
         }
 
-        [Authorize(Roles = "Admin, SuperLinea")]
+        [CustomAuthorize(Roles = "Admin, SuperLinea")]
         // GET: Defecto/Edit/5
         public ActionResult Edit(int id)
         {
@@ -91,7 +91,7 @@ namespace ControlDeCalzado.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin, SuperLinea")]
+        [CustomAuthorize(Roles = "Admin, SuperLinea")]
         // GET: Defecto/Delete/5
         public ActionResult Delete(int id)
         {
