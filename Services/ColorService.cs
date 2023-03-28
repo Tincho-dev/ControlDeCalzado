@@ -1,5 +1,6 @@
 ﻿using Model.Domain.ControlDeCalzado;
 using Persistanse;
+using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,9 +8,9 @@ using System.Linq;
 
 namespace Services
 {
-    public class ColorService
+    public class ColorService : IColorService
     {
-        public static IEnumerable<Color> GetAll()
+        public IEnumerable<Color> GetAll()
         {
             var result = new List<Color>();
 
@@ -22,10 +23,7 @@ namespace Services
             }
             return result;
         }
-
-
-
-        public static Color Get(string id)
+        public Color Get(string id)
         {
             var result = new Color();
 
@@ -37,8 +35,7 @@ namespace Services
             }
             return result;
         }
-
-        public static Color GetEdit(string id)
+        public Color GetEdit(string id)
         {
             var result = new Color();
 
@@ -49,8 +46,7 @@ namespace Services
 
             return result;
         }
-
-        public static void Create(Color model)
+        public void Create(Color model)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -63,8 +59,7 @@ namespace Services
                 db.SaveChanges();
             }
         }
-
-        public static void Update(Color model)
+        public void Update(Color model)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -76,10 +71,7 @@ namespace Services
                 db.SaveChanges();
             }
         }
-
-
-
-        public static void Delete(string id)
+        public void Delete(string id)
         {
             try
             {
@@ -96,8 +88,7 @@ namespace Services
                 throw new Exception(e.Message);
             }
         }
-
-        public static IEnumerable<Color> Buscar(string term)
+        public IEnumerable<Color> Buscar(string term)
         {
 
             IEnumerable<Color> busqueda;
@@ -111,42 +102,6 @@ namespace Services
             return busqueda;
 
         }
-
-        //public static IEnumerable<Color> Buscar(string palabra, string value)
-        //{
-        //    var FechaActual = DateTime.Parse(DateTime.Today.ToShortDateString());
-        //    var db = new ApplicationDbContext();
-        //    IEnumerable<ColorGrid> proyecto;
-
-        //    ColorGrid Color = new ColorGrid();
-
-        //    using (db)
-        //    {
-        //        proyecto = GetAll();
-
-        //        if (!String.IsNullOrEmpty(palabra))
-        //        {
-        //            proyecto = from pr in db.Color.Where(x => x.Titulo.ToUpper().Contains(palabra.ToUpper()))
-        //                       from cli in db.Clientes.Where(x => x.Id == pr.Id_Cliente)
-        //                       select new ColorGrid
-        //                       {
-        //                           Id_Proyecto = pr.Id_Proyecto,
-        //                           Titulo = pr.Titulo,
-        //                           Descripcion = pr.Descripcion,
-        //                           FechaInicio = pr.FechaInicio,
-        //                           FechaFin = pr.FechaFin,
-        //                           Id_Cliente = cli.DNI,
-        //                           Costo = pr.Costo
-        //                       };
-        //        }
-
-        //        proyecto = proyecto.ToList();
-        //    }
-
-        //    return proyecto;
-        //}
-
-     
     }
 }
 

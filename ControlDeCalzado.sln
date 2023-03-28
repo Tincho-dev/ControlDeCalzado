@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlDeCalzado", "Sistema
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{56A628FA-C476-4AEE-9B48-87D29CBC33C6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7F4EBCD5-BC6D-481A-814A-71A1D55FFEAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{9C3247F4-3D34-49A3-93BA-4435F1D33944}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +43,16 @@ Global
 		{56A628FA-C476-4AEE-9B48-87D29CBC33C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56A628FA-C476-4AEE-9B48-87D29CBC33C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56A628FA-C476-4AEE-9B48-87D29CBC33C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C3247F4-3D34-49A3-93BA-4435F1D33944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C3247F4-3D34-49A3-93BA-4435F1D33944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C3247F4-3D34-49A3-93BA-4435F1D33944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C3247F4-3D34-49A3-93BA-4435F1D33944}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9C3247F4-3D34-49A3-93BA-4435F1D33944} = {7F4EBCD5-BC6D-481A-814A-71A1D55FFEAB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {362482FC-173E-4DAE-ACDC-C717099AC421}

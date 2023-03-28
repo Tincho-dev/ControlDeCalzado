@@ -2,6 +2,7 @@
 using Model.Custom;
 using Model.Domain.ControlDeCalzado;
 using Persistanse;
+using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,10 +10,10 @@ using System.Linq;
 
 namespace Services
 {
-    public class OrdenDeProduccionService
+    public class OrdenDeProduccionService : IOrdenDeProduccionService
     {
         #region CRUD
-        public static IEnumerable<OrdenDeProduccionGrid> GetAll()
+        public IEnumerable<OrdenDeProduccionGrid> GetAll()
         {
             var result = new List<OrdenDeProduccionGrid>();
 
@@ -43,7 +44,7 @@ namespace Services
             return result;
         }
 
-        public static OrdenDeProduccionGrid GetDetails(string id)
+        public OrdenDeProduccionGrid GetDetails(string id)
         {
             var result = new OrdenDeProduccionGrid();
 
@@ -74,7 +75,7 @@ namespace Services
 
             return result;
         }
-        public static OrdenDeProduccion Get(string id)
+        public OrdenDeProduccion Get(string id)
         {
             var result = new OrdenDeProduccion();
 
@@ -84,7 +85,7 @@ namespace Services
             }
             return result;
         }
-        public static void Create(OrdenDeProduccion model)
+        public void Create(OrdenDeProduccion model)
         {
             //organizar codigo y condicionales
 
@@ -129,7 +130,7 @@ namespace Services
             }
 
         }
-        public static void Update(OrdenDeProduccion model)
+        public void Update(OrdenDeProduccion model)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -146,7 +147,7 @@ namespace Services
                 db.SaveChanges();
             }
         }
-        public static void Delete(string id)
+        public void Delete(string id)
         {
             try
             {
@@ -167,7 +168,7 @@ namespace Services
 
         #region Jornada y Horario de Control
 
-        public static bool JornadaActiva(string numero)
+        public bool JornadaActiva(string numero)
         {
             var idTurno = TurnoService.GetId();
             var FinJornada = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day) + TurnoService.Get(idTurno).HoraDeFin;
@@ -178,7 +179,7 @@ namespace Services
                     .Any();
             }
         }
-        public static void AgregarJornada(string Numero)
+        public void AgregarJornada(string Numero)
         {
             var op = Get(Numero);
             var idTurno = TurnoService.GetId();
@@ -197,7 +198,7 @@ namespace Services
                 db.SaveChanges();
             }
         }
-        public static void AgregarHorarioDeControl(string Numero)
+        public void AgregarHorarioDeControl(string Numero)
         {
             var op = Get(Numero);
             var idTurno = TurnoService.GetId();
@@ -218,7 +219,7 @@ namespace Services
             }
         }
 
-        public static int HorarioActual(string numeroOp)
+        public int HorarioActual(string numeroOp)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -228,7 +229,7 @@ namespace Services
             }
         }
 
-        public static HorarioDeControl ObtenerHorarioDeControl(string NumeroDeOrden)
+        public HorarioDeControl ObtenerHorarioDeControl(string NumeroDeOrden)
         {
             HorarioDeControl horarioDeControl = null;
             using (var db = new ApplicationDbContext())
@@ -242,9 +243,9 @@ namespace Services
             return horarioDeControl;
         }
 
-        public static void GetJornadaActual(string id)
+        public void GetJornadaActual(string id)
         {
-            OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
+            OrdenDeProduccion op = Get(id);
 
             using (var db = new ApplicationDbContext())
             {
@@ -259,7 +260,7 @@ namespace Services
         #endregion
 
         #region Consultas
-        public static void RegistrarIncidencia(int cantidad, int idHorarioDeControl)
+        public void RegistrarIncidencia(int cantidad, int idHorarioDeControl)
         {
             Incidencia incidencia = new Incidencia()
             {
@@ -276,7 +277,7 @@ namespace Services
             }
         }
 
-        public static void RegistrarIncidencia(int cantidad, int idDefecto, Pie pie, int idHorarioDeControl)
+        public void RegistrarIncidencia(int cantidad, int idDefecto, Pie pie, int idHorarioDeControl)
         {
             Incidencia incidencia = new Incidencia()
             {
@@ -294,8 +295,7 @@ namespace Services
                 db.SaveChanges();
             }
         }
-
-        public static int TotalIncidenciasPrimera(string numero)
+        public int TotalIncidenciasPrimera(string numero)
         {
             var result = 0;
             using (var db = new ApplicationDbContext())
@@ -310,7 +310,7 @@ namespace Services
             return result;
         }
 
-        public static int TotalIncidenciasPrimeraEnHorarioDeControl(int idHorarioDeControl)
+        public int TotalIncidenciasPrimeraEnHorarioDeControl(int idHorarioDeControl)
         {
             var result = 0;
             using (var db = new ApplicationDbContext())
@@ -321,7 +321,7 @@ namespace Services
             return result;
         }
 
-        public static int TotalIncidenciasDefectoPorPie(int idHorarioDeControl, Pie pie, TipoDefecto tipoDefecto, int idDefecto)
+        public int TotalIncidenciasDefectoPorPie(int idHorarioDeControl, Pie pie, TipoDefecto tipoDefecto, int idDefecto)
         {
             var result = 0;
             using (var db = new ApplicationDbContext())
@@ -339,9 +339,9 @@ namespace Services
             return result;
         }
 
-        public static void CargarAlertas(string id)
+        public void CargarAlertas(string id)
         {
-            OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
+            OrdenDeProduccion op = Get(id);
 
             using (var db = new ApplicationDbContext())
             {
@@ -369,7 +369,7 @@ namespace Services
             }
         }
 
-        public static OrdenDeProduccion LineaOcupada(int linea)
+        public OrdenDeProduccion LineaOcupada(int linea)
         {
             var result = new OrdenDeProduccion();
 
@@ -383,7 +383,7 @@ namespace Services
         #endregion
 
         #region Asignar y Desvincular Op
-        public static OrdenDeProduccion GetOP(string user)
+        public OrdenDeProduccion GetOP(string user)
         {
             var result = new OrdenDeProduccion();
 
@@ -394,7 +394,7 @@ namespace Services
             return result;
         }
 
-        public static IEnumerable<OrdenDeProduccion> GetOPSupervisor(string user)
+        public IEnumerable<OrdenDeProduccion> GetOPSupervisor(string user)
         {
             var result = new List<OrdenDeProduccion>();
 
@@ -405,7 +405,7 @@ namespace Services
             return result;
         }
 
-        public static void AsignarSupervisorCalidad(string numero, string userid)
+        public void AsignarSupervisorCalidad(string numero, string userid)
         {
             try
             {
@@ -425,7 +425,7 @@ namespace Services
             }
         }
 
-        public static void AsociarmeAOp(string numero)
+        public void AsociarmeAOp(string numero)
         {
             try
             {
@@ -445,7 +445,7 @@ namespace Services
             }
         }
 
-        public static void DesvincularSupervisorDeCalidad(string numero)
+        public void DesvincularSupervisorDeCalidad(string numero)
         {
             try
             {
@@ -475,7 +475,7 @@ namespace Services
 
         #region Updates
 
-        public static void UpdateCantidadDeParesDePrimera(string Numero, int cantidad)
+        public void UpdateCantidadDeParesDePrimera(string Numero, int cantidad)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -488,7 +488,7 @@ namespace Services
             }
         }
 
-        public static void IniciarOp(string Numero)
+        public void IniciarOp(string Numero)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -501,7 +501,7 @@ namespace Services
             }
         }
 
-        public static void CambiarEstadoOrdenDeProduccion(string Numero, EstadoOp estadoOp)
+        public void CambiarEstadoOrdenDeProduccion(string Numero, EstadoOp estadoOp)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -519,7 +519,7 @@ namespace Services
             }
         }
 
-        public static void TerminarOp(string Numero)
+        public void TerminarOp(string Numero)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -533,7 +533,7 @@ namespace Services
             }
         }
 
-        public static void PausarOp(string Numero)
+        public void PausarOp(string Numero)
         {
             using (var db = new ApplicationDbContext())
             {

@@ -82,6 +82,8 @@
     <Compile Include="ColorService.cs" />
     <Compile Include="DefectoService.cs" />
     <Compile Include="IncidenciaService.cs" />
+    <Compile Include="Interfaces\IColorService.cs" />
+    <Compile Include="Interfaces\IOrdenDeProduccionService.cs" />
     <Compile Include="LineaDeProduccionService.cs" />
     <Compile Include="ModeloService.cs" />
     <Compile Include="OrdenDeProduccionService.cs" />

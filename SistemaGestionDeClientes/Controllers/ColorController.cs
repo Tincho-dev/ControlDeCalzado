@@ -7,11 +7,14 @@ using Common;
 using Model.Domain.ControlDeCalzado;
 using Persistanse;
 using Services;
+using Services.Interfaces;
 
 namespace ControlDeCalzado.Controllers
 {
     public class ColorController : Controller
     {
+        private IColorService ColorService = new ColorService();
+
         [CustomAuthorize(Roles = "Admin")]
         // GET: Color
         public ActionResult Index()

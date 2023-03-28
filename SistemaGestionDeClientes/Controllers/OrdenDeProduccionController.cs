@@ -6,11 +6,15 @@ using System.Web.Mvc;
 using Common;
 using Model.Domain.ControlDeCalzado;
 using Services;
+using Services.Interfaces;
 
 namespace ControlDeCalzado.Controllers
 {
     public class OrdenDeProduccionController : Controller
     {
+        private IColorService ColorService = new ColorService();
+        private IOrdenDeProduccionService OrdenDeProduccionService = new OrdenDeProduccionService();
+
 
         #region CRUD
         [Authorize]
@@ -175,7 +179,6 @@ namespace ControlDeCalzado.Controllers
         public ActionResult ContinuarInspeccion(string id)
         {
             OrdenDeProduccion op = OrdenDeProduccionService.Get(id);
-            //OrdenDeProduccionService.AgregarJornada(id);
             OrdenDeProduccionService.AgregarHorarioDeControl(id);
             OrdenDeProduccionService.CargarAlertas(id);
             OrdenDeProduccionService.IniciarOp(id);
