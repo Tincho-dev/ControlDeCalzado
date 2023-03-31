@@ -29,7 +29,7 @@ La arquitectura en capas nos permite aplicar restricciones sobre que capas se pu
 
 - Test: En esta parte, se encuentran las distintas pruebas unitarias realizadas al código, para verificar que el sistema cumple con las funcionalidades requeridas. 
 
-Contamos con un sistema de autenticación por medio de cookies desarrollado con ayuda del paquete Identity que nos proporciona ASP.NET, logrando realizar el registro e inicio de sesión de los usuarios, como así también el otorgamiento de los distintos roles con los que cuenta el software. 
+Contamos con un sistema de autenticación proporcionado por ASP.NET llamado Identity el cuál hace uso de las cookies para guardar la sesión actual, logrando realizar el registro e inicio de sesión de los usuarios, como así también el otorgamiento de los distintos roles con los que cuenta el software. 
 
 Se cuenta con 3 roles: Supervisor de Línea, Supervisor de Calidad y Administrador. Cada uno tiene acceso a distintas secciones del sistema.  
 
