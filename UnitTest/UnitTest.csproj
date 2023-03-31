@@ -62,13 +62,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="ServiceTests\ColorServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceTests\OrdenDeProduccionServiceTest.cs" />
+    <Compile Include="ServiceTests\ModeloServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{A24044F5-C068-4AF3-87B7-D2722E7E2408}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Models.csproj">
       <Project>{EC9719DB-101B-4451-B9D1-51308B517506}</Project>
       <Name>Models</Name>

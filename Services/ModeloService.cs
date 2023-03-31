@@ -1,5 +1,6 @@
 ﻿using Model.Domain.ControlDeCalzado;
 using Persistanse;
+using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,9 +8,9 @@ using System.Linq;
 
 namespace Services
 {
-    public class ModeloService
+    public class ModeloService : IModeloService
     {
-        public static IEnumerable<Modelo> GetAll()
+        public IEnumerable<Modelo> GetAll()
         {
             var result = new List<Modelo>();
 
@@ -25,7 +26,7 @@ namespace Services
 
 
 
-        public static Modelo Get(string id)
+        public Modelo Get(string id)
         {
             var result = new Modelo();
 
@@ -38,7 +39,7 @@ namespace Services
             return result;
         }
 
-        public static Modelo GetEdit(string id)
+        public Modelo GetEdit(string id)
         {
             var result = new Modelo();
 
@@ -50,7 +51,7 @@ namespace Services
             return result;
         }
 
-        public static void Create(Modelo model)
+        public void Create(Modelo model)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -67,7 +68,7 @@ namespace Services
             }
         }
 
-        public static void Update(Modelo model)
+        public void Update(Modelo model)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -86,7 +87,7 @@ namespace Services
 
 
 
-        public static void Delete(string id)
+        public void Delete(string id)
         {
             try
             {
