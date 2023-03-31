@@ -1,4 +1,13 @@
 # Trabajo Final Integrador
+
+### Integrantes Grupo 7:
+- Figueroa, Felix Ignacio – 46276
+-  López Rubio, Martin – 50011
+-  Maza, Sebastian Agustin - 50240
+-  Paz, Augusto Cesar - 50582
+
+## Detalles del sistema desarrolladoDetalles del sistema desarrollado
+
 El sistema es una aplicación web distribuida, diseñado con una arquitectura en capas. Está desarrollado en visual studio 2019, con tecnología ASP .NET MVC (Modelo – Vista - Controlador) y la base de datos SQL Server 2019. 
 
 Utilizamos Entity Framework para realizar la conexión a base de datos y poder mapear las tablas en base de datos a objetos y clases del sistema. 
