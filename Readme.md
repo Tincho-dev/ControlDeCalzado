@@ -6,11 +6,11 @@
 -  Maza, Sebastian Agustin - 50240
 -  Paz, Augusto Cesar - 50582
 
-## Detalles del sistema desarrolladoDetalles del sistema desarrollado
+## Detalles del sistema desarrollado
 
-El sistema es una aplicación web distribuida, diseñado con una arquitectura en capas. Está desarrollado en visual studio 2019, con tecnología ASP .NET MVC (Modelo – Vista - Controlador) y la base de datos SQL Server 2019. 
+El sistema es una aplicación web distribuida, diseñado con una arquitectura en capas. Está desarrollado en Visual Studio 2019, con tecnología ASP.NET MVC (Modelo – Vista - Controlador) y la base de datos SQL Server 2019. 
 
-Utilizamos Entity Framework para realizar la conexión a base de datos y poder mapear las tablas en base de datos a objetos y clases del sistema. 
+Utilizamos Entity Framework para realizar la conexión a base de datos y poder mapear las tablas de la base de datos a objetos y clases del sistema. 
 
 También utilizamos Ajax que se refiere a un grupo de tecnologías que se utilizan para desarrollar aplicaciones web. Ajax permite que un usuario de la aplicación web interactúe con una página web sin la interrupción que implica volver a cargar la página web. La interacción del sitio web ocurre rápidamente sólo con partes de la página de recarga y renovación. 
 
@@ -20,7 +20,8 @@ La arquitectura en capas nos permite aplicar restricciones sobre que capas se pu
 
 - Capa Models: Es la capa que contiene todas las clases que representan el dominio del problema. 
 
-- Capa Services: También llamada capa lógica de negocios se encarga de la logística del sistema. Es la encargada de conectar todas las capas del sistema, desde la capa presentación hasta la base de datos. 
+- Capa Services: También llamada capa lógica de negocios se encarga de la logística del sistema. Es la encargada de conectar todas las capas del sistema, desde la capa presentación hasta la base de datos. Es el orquestador del flujo del programa.
+
 
 - Capa Persistance: Aquí es donde se realiza la conexión a la base de datos, donde podemos definir datos precargados, etc. 
 
@@ -28,11 +29,11 @@ La arquitectura en capas nos permite aplicar restricciones sobre que capas se pu
 
 - Test: En esta parte, se encuentran las distintas pruebas unitarias realizadas al código, para verificar que el sistema cumple con las funcionalidades requeridas. 
 
-Contamos con un sistema de autenticación por medio de cookies desarrollado con ayuda del paquete Identity que nos proporciona ASP .NET, logrando realizar el registro e inicio de sesión de los usuarios, como así también el otorgamiento de los distintos roles con los que cuenta el software. 
+Contamos con un sistema de autenticación por medio de cookies desarrollado con ayuda del paquete Identity que nos proporciona ASP.NET, logrando realizar el registro e inicio de sesión de los usuarios, como así también el otorgamiento de los distintos roles con los que cuenta el software. 
 
 Se cuenta con 3 roles: Supervisor de Línea, Supervisor de Calidad y Administrador. Cada uno tiene acceso a distintas secciones del sistema.  
 
-- Supervisor de Calidad: Al ingresar un usuario con rol “SuperCalidad” el sistema lo redirige directamente a una vista en donde se muestran las diferentes Ordenes de Producción (Op) disponibles y las asociadas a dicho usuario. Permitiendo, en caso de no tener una Op asociada sin finalizar, poder asociarse a una Op e iniciar la inspección. En caso contrario, el sistema mostrara una excepción de que el Supervisor ya se encuentra asociado a una Op Activa. 
+- Supervisor de Calidad: Al ingresar un usuario con rol “SuperCalidad” el sistema lo redirige directamente a una vista en donde se muestran las diferentes Ordenes de Producción (Op) disponibles y las asociadas a dicho usuario. Permitiendo, en caso de no tener una Op asociada sin finalizar, poder asociarse a una Op e iniciar la inspección. En caso contrario, el sistema mostrará una excepción de que el Supervisor ya se encuentra asociado a una Op Activa. 
 
 - Administrador: El usuario con rol “Admin”, tiene acceso a prácticamente todo el sistema. Las restricciones con las que cuenta son, que no puede crear ordenes de producción, ni tampoco iniciar una inspección. 
 
@@ -58,7 +59,7 @@ Una vez ejecutado el comando anterior, ejecutaremos el siguiente comando:
 
 `Update-database` 
 
-Este comando nos creara la base de datos y en el caso de haber datos precargados, también los incorporara a la base de datos. 
+Este comando nos creara la base de datos y en el caso de haber datos precargados, también los incorporará a la base de datos. 
 
 Una vez realizado esto, ya podemos compilar y ejecutar el sistema. Por defecto el sistema carga en base de datos un usuario Administrador. 
 
